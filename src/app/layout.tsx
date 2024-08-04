@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localfont from "next/font/local";
+import Header from "@/components/Header";
 
 const AeonikFont = localfont({
   src: [
@@ -34,7 +35,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${AeonikFont.className} text-base`}>{children}</body>
+      <body
+        className={`${AeonikFont.className} text-base max-w-screen-xl mx-auto`}
+      >
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

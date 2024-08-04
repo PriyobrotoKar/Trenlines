@@ -1,3 +1,11 @@
+import Herosection from "./Herosection";
+import YoutubeEmbed from "./YoutubeEmbed";
+
 export default function Home() {
-  return <div>Test</div>;
+  return (
+    <div>
+      <Herosection />
+      <YoutubeEmbed />
+    </div>
+  );
 }
