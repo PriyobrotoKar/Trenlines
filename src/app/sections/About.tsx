@@ -2,7 +2,7 @@ import Card from "@/components/Card";
 import Image from "next/image";
 import React from "react";
 
-const About = () => {
+export const About = () => {
   return (
     <section className="flex justify-between  items-center  flex-col  h-[48rem] my-40">
       <Image
@@ -51,5 +51,3 @@ const About = () => {
     </section>
   );
 };
-
-export default About;

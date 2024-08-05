@@ -1,6 +1,5 @@
-import About from "./About";
-import Herosection from "./Herosection";
-import YoutubeEmbed from "./YoutubeEmbed";
+import { About, Herosection, YoutubeEmbed } from "./sections";
+import { Faq } from "./sections/Faq";
 
 export default function Home() {
   return (
@@ -8,6 +7,7 @@ export default function Home() {
       <Herosection />
       <YoutubeEmbed />
       <About />
+      <Faq />
     </div>
   );
 }

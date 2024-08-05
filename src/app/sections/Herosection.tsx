@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 
-const Herosection = () => {
+export const Herosection = () => {
   return (
     <section className="min-h-[70vh] max-h-[45rem]">
       <div className="absolute w-full h-full inset-0 -z-10 ">
@@ -55,5 +55,3 @@ const Herosection = () => {
     </section>
   );
 };
-
-export default Herosection;
