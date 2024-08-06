@@ -35,13 +35,10 @@ const faqs = [
 
 const Faq = () => {
   return (
-    <section className="flex justify-center relative items-center space-y-32 flex-col">
-      <Image
-        src={"/gradient2.svg"}
-        alt="Gradient2"
-        fill
-        className="-z-10 scale-110 -translate-y-20"
-      />
+    <section className="flex justify-center  items-center relative space-y-32 flex-col">
+      <div className="absolute w-full h-[60rem] -z-10 -top-10 ">
+        <Image src={"/gradient2.svg"} alt="Gradient2" fill />
+      </div>
       <div className="text-center">
         <h2 className="font-light text-primary opacity-60 tracking-widest">
           FREQUENTLY ASKED QUESTIONS

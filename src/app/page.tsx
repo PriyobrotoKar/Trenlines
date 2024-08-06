@@ -1,5 +1,6 @@
 import { About, Herosection, YoutubeEmbed } from "./sections";
 import { Faq } from "./sections/Faq";
+import Testimonials from "./sections/Testimonials";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Herosection />
       <YoutubeEmbed />
       <About />
+      <Testimonials />
       <Faq />
     </div>
   );

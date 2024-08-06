@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="flex py-10 px-14 justify-between items-center">
       <div className="flex-1">
-        <Logo />
+        <Logo.small />
       </div>
       <nav className="flex-[2_2_0%]">
         <ul className="flex gap-16 items-center justify-center text-md">
