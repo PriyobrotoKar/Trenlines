@@ -17,9 +17,9 @@ export const About = () => {
         </p>
         <h1 className="text-2xl">Know your Mentor</h1>
       </div>
-      <Card className="flex gap-6 justify-between max-w-screen-lg">
+      <Card className="flex gap-6 justify-between items-end max-w-screen-lg">
         <div className="relative">
-          <div className="absolute h-fit -translate-y-1/2  inset-0">
+          <div className="absolute h-fit -translate-y-[40%]  inset-0">
             <div className="w-full h-full bg-gradient-to-t from-card absolute to-30% to-transparent z-10"></div>
             <Image
               className=""

@@ -1,5 +1,4 @@
-import { About, Herosection, YoutubeEmbed } from "./sections";
-import { Faq } from "./sections/Faq";
+import { About, Herosection, YoutubeEmbed, Faq, Footer } from "./sections";
 import Testimonials from "./sections/Testimonials";
 
 export default function Home() {
@@ -10,6 +9,7 @@ export default function Home() {
       <About />
       <Testimonials />
       <Faq />
+      <Footer />
     </div>
   );
 }
