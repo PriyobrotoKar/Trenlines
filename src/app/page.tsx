@@ -12,6 +12,7 @@ export default function Home() {
       <Vip />
       <Line />
       <Testimonials />
+      <Line />
       <Faq />
       <Footer />
     </div>
