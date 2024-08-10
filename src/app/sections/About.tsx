@@ -4,13 +4,10 @@ import React from "react";
 
 export const About = () => {
   return (
-    <section className="flex justify-between  items-center  flex-col  h-[48rem] my-40">
-      <Image
-        src={"/gradient.svg"}
-        alt="gradient"
-        fill
-        className="-z-10   w-full translate-y-[130svh]"
-      />
+    <section className="flex justify-between relative  items-center  flex-col  h-[48rem] my-40">
+      <div className="absolute w-screen h-[60rem] -top-64 -ml-4">
+        <Image src={"/gradient.svg"} alt="gradient" fill className="-z-10 " />
+      </div>
       <div className="text-center">
         <p className="font-light text-muted-foreground opacity-60 tracking-widest">
           FULL TIME TRADER

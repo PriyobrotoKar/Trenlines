@@ -12,7 +12,7 @@ const socials = [
 
 export const Footer = () => {
   return (
-    <footer className="text-center relative space-y-8 pb-20 pt-48 overflow-hidden">
+    <footer className="text-center relative space-y-6 pb-10 pt-48 overflow-hidden">
       <Image
         src={"logo.svg"}
         className="mx-auto"
@@ -20,7 +20,7 @@ export const Footer = () => {
         width={150}
         height={150}
       />
-      <p className="font-light text-sm text-muted tracking-wider">
+      <p className="font-light text-sm text-muted tracking-widest">
         THE PROGRAM ITSELF DOES NOT GUARENTEE SUCCESS, ONE MUST FOLLOW AND
         IMPLIMENT.
       </p>
@@ -31,13 +31,16 @@ export const Footer = () => {
       </div>
       <p className="flex gap-2 justify-center items-center text-sm font-light text-muted-foreground">
         <Icons.Copyright />
-        <span className="leading-tight">ALL RIGHTS RESERVED</span>
+        <span className="leading-tight tracking-widest">
+          ALL RIGHTS RESERVED
+        </span>
       </p>
       <Image
         src={"/gradient2.svg"}
         alt="gradientFooter"
         fill
-        className="translate-y-1/2  -z-10    absolute"
+        className=" -z-10    absolute"
+        style={{ top: "50%" }}
       ></Image>
     </footer>
   );

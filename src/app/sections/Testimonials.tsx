@@ -16,7 +16,7 @@ const Testimonials = () => {
         </h2>
         <p className="text-2xl tracking-wide">Hear their Success Stories</p>
       </div>
-      <div className="columns-2 relative space-y-8 gap-8 before:bg-gradient-to-t before:absolute before:w-full before:h-full before:from-background before:to-transparent">
+      <div className="columns-2 relative space-y-8 gap-8 before:bg-gradient-to-t before:absolute before:w-full before:h-full before:from-background before:to-transparent before:to-50%">
         {testimonials.map((imgSrc, i) => {
           return (
             <Image

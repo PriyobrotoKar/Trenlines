@@ -1,4 +1,7 @@
 import { IconProps } from "@radix-ui/react-icons/dist/types";
+import * as Hugeicons from "hugeicons-react";
+import type { HugeiconsIcon } from "hugeicons-react";
+import React from "react";
 
 export const Icons = {
   LinkArrow: (props: IconProps) => {
@@ -38,17 +41,17 @@ export const Icons = {
         fill="none"
         {...props}
       >
-        <g clip-path="url(#clip0_165_113)">
+        <g clipPath="url(#clip0_165_113)">
           <path
             d="M13.75 7.5C13.75 10.9517 10.9517 13.75 7.5 13.75C4.04822 13.75 1.25 10.9517 1.25 7.5C1.25 4.04822 4.04822 1.25 7.5 1.25C10.9517 1.25 13.75 4.04822 13.75 7.5Z"
             stroke="#F5FAE8"
-            stroke-width="1.5"
+            strokeWidth="1.5"
           />
           <path
             d="M9.375 8.75C9.375 9.44037 8.81537 10 8.125 10H7.5C6.91756 10 6.62638 10 6.39663 9.90487C6.09036 9.778 5.84702 9.53462 5.72015 9.22837C5.625 8.99862 5.625 8.70744 5.625 8.125V6.875C5.625 6.29256 5.625 6.00136 5.72015 5.77164C5.84702 5.46536 6.09036 5.22202 6.39663 5.09515C6.62638 5 6.91756 5 7.5 5H8.125C8.81537 5 9.375 5.55964 9.375 6.25"
             stroke="#F5FAE8"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
         </g>
         <defs>
@@ -59,4 +62,21 @@ export const Icons = {
       </svg>
     );
   },
+};
+
+export const Icon = ({
+  iconName,
+  ...props
+}: {
+  iconName: string;
+} & Hugeicons.HugeiconsProps) => {
+  const IconComponent = Hugeicons[
+    iconName as keyof typeof Hugeicons
+  ] as HugeiconsIcon;
+
+  if (!IconComponent) {
+    return;
+  }
+
+  return <IconComponent size={40} {...props} />;
 };

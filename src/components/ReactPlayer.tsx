@@ -31,7 +31,7 @@ const Player = ({ videoId }: { videoId: string }) => {
     });
   };
   return (
-    <div className="w-3/4 aspect-video relative">
+    <div className="w-full aspect-video relative">
       <div className="w-full h-full rounded-xl  p-0.5 bg-gradient-to-t from-neutral-600 to bg-neutral-300">
         <div className="w-full h-full rounded-[0.625rem] overflow-hidden">
           <ReactPlayer
