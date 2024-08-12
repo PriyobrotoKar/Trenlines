@@ -8,6 +8,7 @@ import {
 import Card from "@/components/Card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Animate from "@/components/Animate";
 
 const faqs = [
   {
@@ -39,28 +40,40 @@ const Faq = () => {
       <div className="absolute -ml-4 w-screen h-[60rem] -z-10  -top-20">
         <Image src={"/gradient2.svg"} alt="Gradient2" fill />
       </div>
-      <div className="text-center">
+      <Animate
+        hidden={{ opacity: 0, transform: "translateY(10px)" }}
+        visible={{ opacity: 1, transform: "translateY(0)" }}
+        stagger
+        className="text-center"
+      >
         <h2 className="font-light text-primary opacity-60 tracking-widest">
           FREQUENTLY ASKED QUESTIONS
         </h2>
         <p className="text-2xl tracking-wide">Still Got Questions?</p>
-      </div>
-      <Card className="w-[64rem] py-8 ">
-        <Accordion type="single" collapsible className="">
-          {faqs.map(({ question, answer }, i) => {
-            return (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className={cn("py-4 ", i === faqs.length - 1 && "border-b-0")}
-              >
-                <AccordionTrigger>{question}</AccordionTrigger>
-                <AccordionContent>{answer}</AccordionContent>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
-      </Card>
+      </Animate>
+      <Animate
+        hidden={{ opacity: 0, transform: "translateY(10px)" }}
+        visible={{ opacity: 1, transform: "translateY(0)" }}
+        stagger
+        options={{ margin: "0%", offsetDelay: 0.7 }}
+      >
+        <Card className="w-[64rem] py-8 ">
+          <Accordion type="single" collapsible className="">
+            {faqs.map(({ question, answer }, i) => {
+              return (
+                <AccordionItem
+                  key={i}
+                  value={`item-${i}`}
+                  className={cn("py-4 ", i === faqs.length - 1 && "border-b-0")}
+                >
+                  <AccordionTrigger>{question}</AccordionTrigger>
+                  <AccordionContent>{answer}</AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+        </Card>
+      </Animate>
     </section>
   );
 };

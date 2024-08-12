@@ -5,12 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center will-change-transform group   relative justify-center whitespace-nowrap rounded-full text-base font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-gradient-to-t from-primary-dark to-primary text-primary-foreground shadow-lg shadow-primary/10 hover:bg-primary/90 hover:scale-105 ",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
@@ -34,6 +34,26 @@ const buttonVariants = cva(
   }
 );
 
+const gradientVariants = cva(
+  "opacity-0 transition-opacity duration-300 will-change-auto  rounded-[inherit]  group-hover:opacity-100",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-gradient-to-t from-primary-dark to-primary text-primary-foreground shadow hover:bg-primary/90  from-30% ",
+        destructive: "",
+        outline: "",
+        secondary: "",
+        ghost: "",
+        link: "",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -41,14 +61,24 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, children, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        <div
+          className={cn(
+            "absolute w-full h-full ",
+            gradientVariants({ variant })
+          )}
+        ></div>
+        <span className="inline-flex items-center will-change-transform gap-1 z-10">
+          {children}
+        </span>
+      </Comp>
     );
   }
 );

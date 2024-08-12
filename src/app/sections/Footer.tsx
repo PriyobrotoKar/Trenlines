@@ -12,7 +12,7 @@ const socials = [
 
 export const Footer = () => {
   return (
-    <footer className="text-center relative space-y-6 pb-10 pt-48 overflow-hidden">
+    <footer className="text-center  relative space-y-6 pb-10 pt-48 overflow-hidden">
       <Image
         src={"logo.svg"}
         className="mx-auto"

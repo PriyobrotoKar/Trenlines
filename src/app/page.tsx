@@ -8,6 +8,7 @@ export default function Home() {
     <div>
       <Herosection />
       <YoutubeEmbed />
+      <Line />
       <About />
       <Vip />
       <Line />
