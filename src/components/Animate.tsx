@@ -41,7 +41,7 @@ const Animate = ({
 } & MotionProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    // once: true,
+    once: true,
     margin: options?.margin || "-30%",
   });
   const initialStyles = Object.fromEntries(

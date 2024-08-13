@@ -55,7 +55,7 @@ const Faq = () => {
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
-        options={{ margin: "0%", offsetDelay: 0.7 }}
+        options={{ margin: "0%", offsetDelay: 0.5 }}
       >
         <Card className="w-[64rem] py-8 ">
           <Accordion type="single" collapsible className="">

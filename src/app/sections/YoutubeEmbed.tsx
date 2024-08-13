@@ -1,3 +1,4 @@
+import Animate from "@/components/Animate";
 import Player from "@/components/ReactPlayer";
 import React from "react";
 
@@ -18,7 +19,15 @@ export const YoutubeEmbed = async () => {
 
   return (
     <section className="flex justify-center items-center my-10">
-      <Player videoId={result.items[0].id.videoId} />
+      <Animate
+        hidden={{ opacity: 0, transform: "translateY(20px)" }}
+        visible={{ opacity: 1, transform: "translateY(0)" }}
+        stagger
+        options={{ margin: "0%", offsetDelay: 1 }}
+        className="w-full"
+      >
+        <Player videoId={result.items[0].id.videoId} />
+      </Animate>
     </section>
   );
 };
