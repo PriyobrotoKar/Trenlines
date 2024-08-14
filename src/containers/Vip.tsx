@@ -132,4 +132,4 @@ const Vip = () => {
   );
 };
 
-export default Vip;
+export { Vip };

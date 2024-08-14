@@ -18,3 +18,16 @@ export const extractDomain = (link: string) => {
 
   return url[startInd].toUpperCase() + url.substring(startInd + 1, endInd);
 };
+
+export const getTimeOfDay = () => {
+  const time = new Date().getHours();
+  if (time < 5 || time > 9) {
+    return "Night";
+  } else if (time < 12) {
+    return "Morning";
+  } else if (time < 17) {
+    return "Afternoon";
+  } else {
+    return "Evening";
+  }
+};

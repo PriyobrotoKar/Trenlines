@@ -1,7 +1,13 @@
 import Line from "@/components/Line";
-import { About, Herosection, YoutubeEmbed, Faq, Footer } from "./sections";
-import Testimonials from "./sections/Testimonials";
-import Vip from "./sections/Vip";
+import {
+  About,
+  Herosection,
+  YoutubeEmbed,
+  Testimonials,
+  Vip,
+  Faq,
+  Footer,
+} from "@/containers";
 
 export default function Home() {
   return (

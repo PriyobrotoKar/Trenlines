@@ -35,12 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${AeonikFont.className} text-base max-w-screen-lg  mx-auto`}
-      >
-        <Header />
-        {children}
-      </body>
+      <body className={`${AeonikFont.className} text-base `}>{children}</body>
     </html>
   );
 }
