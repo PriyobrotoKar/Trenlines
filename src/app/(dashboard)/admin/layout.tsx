@@ -6,7 +6,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex p-8 min-h-svh gap-10">
       <Sidebar />
-      <div>
+      <div className="space-y-10">
         <Header />
         {children}
       </div>
