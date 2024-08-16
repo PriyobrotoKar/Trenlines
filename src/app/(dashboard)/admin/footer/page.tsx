@@ -4,14 +4,16 @@ import React from "react";
 const page = () => {
   return (
     <>
+      <Card.CallToAction />
       {[...Array(4)].map((_, i) => (
-        <Card.Feature
+        <Card.Link
           key={i}
-          title={"Feature " + (i + 1)}
+          title={"Link " + (i + 1)}
           description="Modify Properties"
         />
       ))}
-      <Card.LargeText title="Description" description="Enter product info" />
+      <Card.LargeText title="Disclaimer" description="Edit disclaimer info" />
+      <Card.LargeText title="Copyright" description="Edit copyright info" />
     </>
   );
 };

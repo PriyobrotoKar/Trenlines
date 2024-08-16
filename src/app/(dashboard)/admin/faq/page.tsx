@@ -5,13 +5,12 @@ const page = () => {
   return (
     <>
       {[...Array(4)].map((_, i) => (
-        <Card.Feature
+        <Card.Question
           key={i}
-          title={"Feature " + (i + 1)}
-          description="Modify Properties"
+          title={"Question " + (i + 1)}
+          description="Enter product info"
         />
       ))}
-      <Card.LargeText title="Description" description="Enter product info" />
     </>
   );
 };

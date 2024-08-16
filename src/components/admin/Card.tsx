@@ -80,4 +80,38 @@ Card.LargeText = function LargeText({ title, description }: DefaultValue) {
   );
 };
 
+Card.Feature = function Feature({ title, description }: DefaultValue) {
+  return (
+    <Card title={title} description={description} className="gap-20">
+      <div className="flex gap-6">
+        <div></div>
+        <Input type="text" placeholder="Title" />
+        <Input type="text" placeholder="Subtitle" />
+      </div>
+    </Card>
+  );
+};
+
+Card.Question = function Question({ title, description }: DefaultValue) {
+  return (
+    <Card title={title} description={description} className="gap-20">
+      <div className="space-y-4">
+        <Input type="text" placeholder="Question" />
+        <Textarea placeholder="Answer" />
+      </div>
+    </Card>
+  );
+};
+
+Card.Link = function Link({ title, description }: DefaultValue) {
+  return (
+    <Card title={title} description={description} className="gap-20">
+      <div className="flex gap-4">
+        <div></div>
+        <Input type="text" placeholder="Link" />
+      </div>
+    </Card>
+  );
+};
+
 export default Card;
