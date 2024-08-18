@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { UseFormRegister } from "react-hook-form";
 
 type DefaultValue = {
   title: string;
@@ -61,54 +62,93 @@ Card.ImageUpload = function ImageUpload({
 Card.CallToAction = function CallToAction({
   title = "Call to Action",
   description = "Edit label and link",
-}: Partial<DefaultValue>) {
+  register,
+}: Partial<DefaultValue> & { register: UseFormRegister<any> }) {
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="flex gap-4">
-        <Input type="text" placeholder="Label" />
-        <Input type="text" placeholder="Link" />
+        <Input type="text" placeholder="Label" {...register("ctaLabel")} />
+        <Input type="text" placeholder="Link" {...register("ctaLink")} />
       </div>
     </Card>
   );
 };
 
-Card.LargeText = function LargeText({ title, description }: DefaultValue) {
+Card.LargeText = function LargeText({
+  title,
+  description,
+  register,
+}: DefaultValue & { register: UseFormRegister<any> }) {
   return (
     <Card title={title} description={description} className="gap-20">
-      <Textarea />
+      <Textarea {...register(title.toLowerCase())} />
     </Card>
   );
 };
 
-Card.Feature = function Feature({ title, description }: DefaultValue) {
+Card.Feature = function Feature({
+  title,
+  description,
+  ind,
+  register,
+}: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="flex gap-6">
         <div></div>
-        <Input type="text" placeholder="Title" />
-        <Input type="text" placeholder="Subtitle" />
+        <Input
+          type="text"
+          placeholder="Title"
+          {...register(`features.${ind}.title`)}
+        />
+        <Input
+          type="text"
+          placeholder="Subtitle"
+          {...register(`features.${ind}.subtitle`)}
+        />
       </div>
     </Card>
   );
 };
 
-Card.Question = function Question({ title, description }: DefaultValue) {
+Card.Question = function Question({
+  title,
+  description,
+  ind,
+  register,
+}: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="space-y-4">
-        <Input type="text" placeholder="Question" />
-        <Textarea placeholder="Answer" />
+        <Input
+          type="text"
+          placeholder="Question"
+          {...register(`questions.${ind}.question`)}
+        />
+        <Textarea
+          placeholder="Answer"
+          {...register(`questions.${ind}.answer`)}
+        />
       </div>
     </Card>
   );
 };
 
-Card.Link = function Link({ title, description }: DefaultValue) {
+Card.Link = function Link({
+  title,
+  description,
+  ind,
+  register,
+}: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="flex gap-4">
         <div></div>
-        <Input type="text" placeholder="Link" />
+        <Input
+          type="text"
+          placeholder="Link"
+          {...register(`links.${ind}.link`)}
+        />
       </div>
     </Card>
   );

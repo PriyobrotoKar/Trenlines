@@ -1,10 +1,15 @@
+import { auth } from "@/lib/auth";
 import { getTimeOfDay } from "@/lib/utils";
+import Image from "next/image";
 import React from "react";
 
-const Header = () => {
+const Header = async () => {
+  const session = await auth();
+  console.log(session);
+  if (!session || !session.user) return null;
   const timeOfDay = getTimeOfDay();
   return (
-    <header>
+    <header className="flex justify-between items-center">
       <div>
         <h1 className="text-xl">
           Good {timeOfDay}, <span className="text-primary">Sam</span>
@@ -19,7 +24,15 @@ const Header = () => {
           </span>
         </div>
       </div>
-      <div></div>
+      <div>
+        <Image
+          className="rounded-full"
+          src={session.user.image || session.user.name![0].toUpperCase()}
+          alt="profile"
+          width={60}
+          height={60}
+        />
+      </div>
     </header>
   );
 };
