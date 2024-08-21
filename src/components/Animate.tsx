@@ -29,6 +29,7 @@ const Animate = ({
   visible,
   stagger = false,
   className,
+  childClassNames,
   options,
   ...props
 }: {
@@ -38,6 +39,7 @@ const Animate = ({
   stagger?: boolean;
   options?: AnimationOptions;
   className?: string;
+  childClassNames?: string;
 } & MotionProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
@@ -68,6 +70,7 @@ const Animate = ({
               }),
             }}
             key={i}
+            className={childClassNames}
           >
             {child}
           </motion.div>

@@ -7,6 +7,7 @@ import {
   Vip,
   Faq,
   Footer,
+  Resources,
 } from "@/containers";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <YoutubeEmbed />
       <Line />
       <About />
+      <Resources />
       <Vip />
       <Line />
       <Testimonials />

@@ -7,6 +7,7 @@ import {
   Path,
   useForm,
   UseFormProps,
+  useWatch,
 } from "react-hook-form";
 import { ZodSchema } from "zod";
 
@@ -21,8 +22,11 @@ const useAutoSaveForm = <T extends FieldValues>(
     handleSubmit,
     setError,
     clearErrors,
+    control,
     formState: { isValid, errors },
   } = useForm<T>(options);
+
+  const watchValues = useWatch({ control });
 
   const onSubmit = useCallback(
     (data: DeepPartial<T>) => {
@@ -39,27 +43,28 @@ const useAutoSaveForm = <T extends FieldValues>(
         return;
       }
       clearErrors();
-      console.log("Save to", sectionName, data);
-      updateSection(sectionName, data as T);
+      console.log("Save to", sectionName, {
+        ...data,
+        image: URL.createObjectURL(data.image[0]),
+      });
+      updateSection(sectionName, {
+        ...data,
+        image: URL.createObjectURL(data.image[0]),
+      } as T);
     },
     [schema, setError, clearErrors, sectionName]
   );
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    const subscription = watch((value) => {
-      //auto save to db on change with a debounce
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        console.log(isValid);
-        onSubmit(value);
-      }, 1000);
-    });
+    //auto save to db on change with a debounce
+    timeout = setTimeout(() => {
+      onSubmit(watchValues);
+    }, 1000);
     return () => {
-      subscription.unsubscribe();
       clearTimeout(timeout);
     };
-  }, [watch, isValid, handleSubmit, onSubmit]);
+  }, [watchValues, handleSubmit, onSubmit]);
 
   return { register, watch, errors };
 };

@@ -4,18 +4,18 @@ import React from "react";
 
 export const YoutubeEmbed = async () => {
   const url =
-    "https://youtube-v3-lite.p.rapidapi.com/search?channelId=UCosl0QbU2kWlxVP5pbuGSsQ&part=id%2Csnippet";
+    "https://yt-api.p.rapidapi.com/channel/videos?id=UCosl0QbU2kWlxVP5pbuGSsQ";
   const options = {
     method: "GET",
     headers: {
       "x-rapidapi-key": process.env.YOUTUBE_API_KEY!,
-      "x-rapidapi-host": "youtube-v3-lite.p.rapidapi.com",
+      "x-rapidapi-host": "yt-api.p.rapidapi.com",
     },
   };
 
   const response = await fetch(url, options);
   const result = await response.json();
-  console.log(result.items[0].id.videoId);
+  console.log(result.data[0].videoId);
 
   return (
     <section className="flex justify-center items-center my-10">
@@ -26,7 +26,7 @@ export const YoutubeEmbed = async () => {
         options={{ margin: "0%", offsetDelay: 1 }}
         className="w-full"
       >
-        <Player videoId={result.items[0].id.videoId} />
+        <Player videoId={result.data[0].videoId} />
       </Animate>
     </section>
   );

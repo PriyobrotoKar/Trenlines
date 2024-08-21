@@ -1,4 +1,5 @@
 export * from "./Herosection";
+export * from "./Resources";
 export * from "./About";
 export * from "./YoutubeEmbed";
 export * from "./Faq";

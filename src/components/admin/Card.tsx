@@ -10,6 +10,7 @@ import React, {
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { UseFormRegister } from "react-hook-form";
+import Image from "next/image";
 
 type DefaultValue = {
   title: string;
@@ -48,13 +49,23 @@ const Card = ({
 Card.ImageUpload = function ImageUpload({
   title,
   description,
-}: {
-  title: string;
-  description: string;
-}) {
+  value,
+  register,
+}: DefaultValue & { value: string; register: UseFormRegister<any> }) {
   return (
     <Card title={title} description={description}>
-      <div className="size-16 border  border-dashed bg-muted rounded-xl"></div>
+      <label htmlFor="imageInput">
+        <div className="size-16 border  border-dashed bg-muted rounded-xl">
+          <Image src={value} alt="Image" width={80} height={80} />
+        </div>
+      </label>
+      <input
+        type="file"
+        id="imageInput"
+        {...register("image")}
+        accept="image/*"
+        className="hidden"
+      />
     </Card>
   );
 };
