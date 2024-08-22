@@ -5,12 +5,35 @@ import React, {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import Image from "next/image";
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import ColorPicker from "../ColorPicker";
+import { type } from "os";
+import { Button } from "../ui/button";
+import { uploadImage } from "@/actions/uploadImage";
 
 type DefaultValue = {
   title: string;
@@ -51,21 +74,61 @@ Card.ImageUpload = function ImageUpload({
   description,
   value,
   register,
-}: DefaultValue & { value: string; register: UseFormRegister<any> }) {
+  setValue,
+}: DefaultValue & {
+  value: string;
+  register: UseFormRegister<any>;
+  setValue: UseFormSetValue<any>;
+}) {
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
+  const cropperRef = useRef<ReactCropperElement>(null);
+
+  const handleCrop = async () => {
+    const cropper = cropperRef.current?.cropper;
+    if (!cropper) return;
+    const croppedImage = cropper.getCroppedCanvas().toDataURL();
+    const imageUrl = await uploadImage(croppedImage);
+    setValue("image", imageUrl);
+  };
   return (
     <Card title={title} description={description}>
       <label htmlFor="imageInput">
-        <div className="size-16 border  border-dashed bg-muted rounded-xl">
-          <Image src={value} alt="Image" width={80} height={80} />
+        <div className="size-16 border  border-dashed bg-muted rounded-xl overflow-hidden">
+          <Image
+            src={value}
+            alt="Image"
+            width={80}
+            height={80}
+            className="object-cover w-full h-full"
+          />
         </div>
       </label>
+      <input type="text" {...register("image")} className="hidden" />
       <input
         type="file"
         id="imageInput"
-        {...register("image")}
+        onChange={(e) => {
+          if (!e.target.files || e.target.files.length === 0) return;
+          setImage(URL.createObjectURL(e.target.files[0]));
+          setOpen(true);
+        }}
         accept="image/*"
         className="hidden"
       />
+      <Dialog open={open} onOpenChange={(open) => setOpen(!open)}>
+        <DialogContent>
+          <Cropper
+            src={image as string}
+            style={{ height: 400, width: "100%" }}
+            // Cropper.js options
+            initialAspectRatio={16 / 9}
+            guides={false}
+            ref={cropperRef}
+          />
+          <Button onClick={handleCrop}>Crop</Button>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
@@ -159,6 +222,60 @@ Card.Link = function Link({
           type="text"
           placeholder="Link"
           {...register(`links.${ind}.link`)}
+        />
+      </div>
+    </Card>
+  );
+};
+
+Card.Affiliate = function Affiliate({
+  ind,
+  register,
+  setValue,
+}: {
+  ind: number;
+  register: UseFormRegister<any>;
+  setValue: UseFormSetValue<any>;
+}) {
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    setValue(`affliates.${ind}.properties.color`, color);
+  }, [color, setValue, ind]);
+
+  return (
+    <Card
+      title={"Properties"}
+      description={"Modify Properties"}
+      className="gap-20"
+    >
+      <div className="flex gap-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div
+              style={{ backgroundColor: color }}
+              className="size-10 flex-shrink-0 rounded-xl border border-dashed"
+            ></div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="overflow-visible">
+            <ColorPicker color={color} setColor={setColor} />
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Input
+          type="text"
+          className="hidden"
+          placeholder="Color"
+          {...register(`affliates.${ind}.properties.code`)}
+        />
+        <Input
+          type="text"
+          placeholder="Link"
+          {...register(`affliates.${ind}.properties.link`)}
+        />
+        <Input
+          type="text"
+          placeholder="Code"
+          {...register(`affliates.${ind}.properties.code`)}
         />
       </div>
     </Card>

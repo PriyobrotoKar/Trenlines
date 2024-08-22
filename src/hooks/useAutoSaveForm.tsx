@@ -24,6 +24,7 @@ const useAutoSaveForm = <T extends FieldValues>(
     clearErrors,
     control,
     formState: { isValid, errors },
+    setValue,
   } = useForm<T>(options);
 
   const watchValues = useWatch({ control });
@@ -43,14 +44,8 @@ const useAutoSaveForm = <T extends FieldValues>(
         return;
       }
       clearErrors();
-      console.log("Save to", sectionName, {
-        ...data,
-        image: URL.createObjectURL(data.image[0]),
-      });
-      updateSection(sectionName, {
-        ...data,
-        image: URL.createObjectURL(data.image[0]),
-      } as T);
+      console.log("Save to", sectionName, data);
+      updateSection(sectionName, data);
     },
     [schema, setError, clearErrors, sectionName]
   );
@@ -66,7 +61,7 @@ const useAutoSaveForm = <T extends FieldValues>(
     };
   }, [watchValues, handleSubmit, onSubmit]);
 
-  return { register, watch, errors };
+  return { register, watch, errors, setValue };
 };
 
 export default useAutoSaveForm;

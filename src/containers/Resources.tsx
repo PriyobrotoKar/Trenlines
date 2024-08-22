@@ -45,18 +45,18 @@ const Resources = async () => {
         className="tracking-wider "
       >
         <div className="bg-[url('/live.png')] bg-no-repeat relative leading-snug bg-cover h-[25rem] before:absolute before:bg-gradient-to-tl overflow-hidden before:from-accent before:to-transparent before:inset-0 before:w-full before:h-full  rounded-xl flex flex-col justify-end p-10 items-end [&>*]:z-10">
-          <p className="font-light">FREE</p>
+          <p className="font-light text-primary">FREE</p>
           <h2 className="text-2xl">Daily Streams</h2>
           <div className="flex gap-6 tracking-normal items-center font-light text-sm">
             <div>
               New York Session{" "}
-              <span className="bg-foreground text-background rounded-full px-2 py-0.5">
+              <span className="bg-foreground text-background rounded-full px-2.5 py-0.5">
                 1pm
               </span>
             </div>
             <div>
               London Session Stream{" "}
-              <span className="bg-foreground text-background rounded-full px-2 py-0.5">
+              <span className="bg-foreground text-background rounded-full px-2.5 py-0.5">
                 8am
               </span>
             </div>
@@ -92,7 +92,9 @@ const Resources = async () => {
                 />
               </Animate>
               <div className="z-10 h-full flex justify-between items-center flex-col">
-                <p className="font-light text-sm text-primary">{card.code}</p>
+                <p className="font-light text-sm text-primary/80 tracking-wider">
+                  {card.code}
+                </p>
                 <Image
                   src={card.logo}
                   alt="Resource"

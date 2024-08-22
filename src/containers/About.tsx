@@ -4,7 +4,22 @@ import FollowerCount from "@/components/FollowerCount";
 import Image from "next/image";
 import React from "react";
 
-export const About = () => {
+export const About = async () => {
+  const url =
+    "https://instagram-scraper-api2.p.rapidapi.com/v1/info?username_or_id_or_url=trenlines";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.INSTAGRAM_API_KEY!,
+      "x-rapidapi-host": "instagram-scraper-api2.p.rapidapi.com",
+    },
+  };
+
+  const response = await fetch(url, options);
+  const result = await response.json();
+  const followerCount = result.data.follower_count;
+  console.log(result.data.follower_count);
+
   return (
     <section className="flex justify-between relative  items-center  flex-col  h-[48rem] my-40">
       <div className="absolute w-screen h-[60rem] -top-64 -ml-4">
@@ -53,7 +68,7 @@ export const About = () => {
           </div>
           <div className="text-right space-y-4">
             <div>
-              <FollowerCount initial={20} final={44.8} />
+              <FollowerCount initial={20} final={followerCount} />
               <div className="text-sm">Followers on Instagram</div>
             </div>
             <p className="max-w-lg  tracking-wider leading-snug">

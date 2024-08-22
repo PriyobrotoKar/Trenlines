@@ -16,7 +16,7 @@ const InputSchema = z.object({
   ),
 });
 
-const page = () => {
+const Page = () => {
   const { data } = useQuery({
     queryKey: ["faq"],
     queryFn: async () => await getSection("faq"),
@@ -52,4 +52,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

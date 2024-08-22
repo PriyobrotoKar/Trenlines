@@ -17,17 +17,7 @@ type Inputs = {
 };
 
 export const InputSchema = z.object({
-  image: z
-    .any()
-    .refine((files) => files?.length === 1, "Image is required.")
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .jpeg, .png and .webp files are accepted."
-    ),
+  image: z.string().url().min(1, { message: "Image is required" }),
   ctaLabel: z.string().min(1, { message: "CTA Label is required" }),
   ctaLink: z.string().url().min(1, { message: "CTA Link is required" }),
 });
@@ -38,18 +28,17 @@ const Page = ({ params }: { params: { section: string } }) => {
     queryFn: async () => await getSection("header"),
   });
 
-  const { register, errors } = useAutoSaveForm<z.infer<typeof InputSchema>>(
-    InputSchema,
-    "header",
-    {
-      resolver: zodResolver(InputSchema),
-      defaultValues: {
-        ctaLabel: "",
-        ctaLink: "",
-      },
-      values: data?.content as z.infer<typeof InputSchema>,
-    }
-  );
+  const { register, errors, setValue } = useAutoSaveForm<
+    z.infer<typeof InputSchema>
+  >(InputSchema, "header", {
+    resolver: zodResolver(InputSchema),
+    defaultValues: {
+      image: "",
+      ctaLabel: "",
+      ctaLink: "",
+    },
+    values: data?.content as z.infer<typeof InputSchema>,
+  });
 
   // if (!data?.content) {
   //   return null;
@@ -60,6 +49,7 @@ const Page = ({ params }: { params: { section: string } }) => {
       <Card.ImageUpload
         value={(data?.content as z.infer<typeof InputSchema>)?.image}
         register={register}
+        setValue={setValue}
         title="Brand Logo"
         description="Replace with a 1:1 logo mark"
       />

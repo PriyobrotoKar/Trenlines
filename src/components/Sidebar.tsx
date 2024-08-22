@@ -6,6 +6,7 @@ const sections = [
   "Header",
   "Hero Section",
   "Mentor",
+  "Resources",
   "Vip Program",
   "Testimonials",
   "FAQ",

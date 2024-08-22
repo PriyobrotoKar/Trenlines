@@ -38,7 +38,12 @@ const Page = () => {
   );
   return (
     <>
-      <Card.ImageUpload title="Hero Image" description="Size Limit:1.5mb" />
+      <Card.ImageUpload
+        register={register}
+        value=""
+        title="Hero Image"
+        description="Size Limit:1.5mb"
+      />
       <Card.CallToAction register={register} />
     </>
   );
