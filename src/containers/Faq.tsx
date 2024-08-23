@@ -36,8 +36,8 @@ const faqs = [
 
 const Faq = () => {
   return (
-    <section className="flex justify-center  items-center overflow-visible relative space-y-32 flex-col">
-      <div className="absolute -ml-4 w-screen h-[60rem] -z-10  -top-20">
+    <section className="flex justify-center   items-center overflow-visible relative space-y-20 md:space-y-32 flex-col">
+      <div className="absolute  w-svw h-[60rem] -z-10 -top-56  md:-top-20">
         <Image src={"/gradient2.svg"} alt="Gradient2" fill />
       </div>
       <Animate
@@ -46,10 +46,12 @@ const Faq = () => {
         stagger
         className="text-center"
       >
-        <h2 className="font-light text-primary opacity-60 tracking-widest">
+        <h2 className="font-light text-sm md:text-base text-primary opacity-60 tracking-widest">
           FREQUENTLY ASKED QUESTIONS
         </h2>
-        <p className="text-2xl tracking-wide">Still Got Questions?</p>
+        <p className="text-lg md:text-2xl tracking-wide">
+          Still Got Questions?
+        </p>
       </Animate>
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
@@ -57,14 +59,17 @@ const Faq = () => {
         stagger
         options={{ margin: "0%", offsetDelay: 0.5 }}
       >
-        <Card className="w-[64rem] py-8 ">
+        <Card className="max-w-[64rem] py-8 ">
           <Accordion type="single" collapsible className="">
             {faqs.map(({ question, answer }, i) => {
               return (
                 <AccordionItem
                   key={i}
                   value={`item-${i}`}
-                  className={cn("py-4 ", i === faqs.length - 1 && "border-b-0")}
+                  className={cn(
+                    "py-4 text-left ",
+                    i === faqs.length - 1 && "border-b-0"
+                  )}
                 >
                   <AccordionTrigger>{question}</AccordionTrigger>
                   <AccordionContent>{answer}</AccordionContent>

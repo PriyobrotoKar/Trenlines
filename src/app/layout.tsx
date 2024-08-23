@@ -35,7 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${AeonikFont.className} text-base `}>{children}</body>
+      <body className={`${AeonikFont.className} text-base overflow-x-hidden`}>
+        {children}
+      </body>
     </html>
   );
 }

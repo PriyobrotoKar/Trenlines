@@ -9,7 +9,10 @@ const Card = ({
   return (
     <div className="bg-gradient-to-t p-0.5 rounded-2xl from-transparent to-muted ">
       <div
-        className={cn("p-16  bg-card rounded-[0.875rem]", className)}
+        className={cn(
+          "p-8 md:p-12 xl:p-16  bg-card rounded-[0.875rem]",
+          className
+        )}
         {...props}
       >
         {children}

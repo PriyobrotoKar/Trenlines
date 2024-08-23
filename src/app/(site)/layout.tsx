@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 
 const SiteLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="max-w-screen-lg  mx-auto">
+    <div className="max-w-screen-lg  mx-auto overscroll-x-none ">
       <Header />
       <div>{children}</div>
     </div>

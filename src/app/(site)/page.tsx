@@ -12,9 +12,8 @@ import {
 
 export default function Home() {
   return (
-    <div>
+    <div className="px-4 md:px-10 mt-40 lg:mt-52 md:mt-24">
       <Herosection />
-      <YoutubeEmbed />
       <Line />
       <About />
       <Resources />

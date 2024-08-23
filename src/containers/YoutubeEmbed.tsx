@@ -1,8 +1,9 @@
 import Animate from "@/components/Animate";
 import Player from "@/components/ReactPlayer";
+import { cn } from "@/lib/utils";
 import React from "react";
 
-export const YoutubeEmbed = async () => {
+export const YoutubeEmbed = async ({ className }: { className?: string }) => {
   const url =
     "https://yt-api.p.rapidapi.com/channel/videos?id=UCosl0QbU2kWlxVP5pbuGSsQ";
   const options = {
@@ -15,19 +16,23 @@ export const YoutubeEmbed = async () => {
 
   const response = await fetch(url, options);
   const result = await response.json();
-  console.log(result.data[0].videoId);
 
   return (
-    <section className="flex justify-center items-center my-10">
-      <Animate
+    <section
+      className={cn(
+        " flex justify-center items-center md:my-10 w-full px-6",
+        className
+      )}
+    >
+      {/* <Animate
         hidden={{ opacity: 0, transform: "translateY(20px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
         options={{ margin: "0%", offsetDelay: 1 }}
         className="w-full"
-      >
-        <Player videoId={result.data[0].videoId} />
-      </Animate>
+      > */}
+      <Player videoId={result.data[0].videoId} />
+      {/* </Animate> */}
     </section>
   );
 };

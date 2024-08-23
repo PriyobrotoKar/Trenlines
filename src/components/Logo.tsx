@@ -4,6 +4,7 @@ export const Logo = {
       <svg
         width="55"
         height="58"
+        className="lg:size-auto  size-10 mx-auto md:mx-0 "
         viewBox="0 0 55 58"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

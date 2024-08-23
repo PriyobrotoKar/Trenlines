@@ -15,14 +15,16 @@ const Testimonials = () => {
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
-        className="text-center mb-32"
+        className="text-center mb-10 md:mb-32"
       >
-        <h2 className="font-light text-primary opacity-60 tracking-widest">
+        <h2 className="text-sm md:text-base font-light text-primary opacity-60 tracking-widest">
           RESULT
         </h2>
-        <p className="text-2xl tracking-wide">Hear their Success Stories</p>
+        <p className="text-lg md:text-2xl tracking-wide">
+          Hear their Success Stories
+        </p>
       </Animate>
-      <div className="columns-2 relative space-y-8 gap-6 before:bg-gradient-to-t before:z-10 before:absolute before:w-full before:h-full before:from-background before:to-transparent before:to-50%">
+      <div className="columns-2 relative space-y-2 md:space-y-8 gap-2 md:gap-6 before:bg-gradient-to-t before:z-10 before:absolute before:w-full before:h-full before:from-background before:to-transparent before:to-50%">
         {testimonials.map((imgSrc, i) => {
           return (
             <Animate
@@ -55,7 +57,7 @@ const Testimonials = () => {
         className="text-center space-y-4 mt-6"
       >
         <Button>I want to achieve results like these</Button>
-        <p className="text-sm ">
+        <p className="text-[0.6rem] md:text-sm ">
           Become our next success story.{" "}
           <span className="text-primary font-bold">Act fast.</span>
         </p>
