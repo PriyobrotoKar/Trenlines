@@ -14,6 +14,7 @@ type Inputs = {
 };
 
 const InputSchema = z.object({
+  image: z.string().url().min(1, { message: "Image is required" }),
   ctaLabel: z.string().min(1, { message: "CTA Label is required" }),
   ctaLink: z.string().min(1, { message: "CTA Link is required" }),
 });
@@ -21,15 +22,16 @@ const InputSchema = z.object({
 const Page = () => {
   const { data, error } = useQuery({
     queryKey: ["heroSection"],
-    queryFn: async () => await getSection("header"),
+    queryFn: async () => await getSection("heroSection"),
   });
 
-  const { register } = useAutoSaveForm<z.infer<typeof InputSchema>>(
+  const { register, setValue } = useAutoSaveForm<z.infer<typeof InputSchema>>(
     InputSchema,
     "heroSection",
     {
       resolver: zodResolver(InputSchema),
       defaultValues: {
+        image: "",
         ctaLabel: "",
         ctaLink: "",
       },
@@ -39,8 +41,10 @@ const Page = () => {
   return (
     <>
       <Card.ImageUpload
+        aspectRatio={16 / 9}
+        setValue={setValue}
+        value={(data?.content as z.infer<typeof InputSchema>)?.image}
         register={register}
-        value=""
         title="Hero Image"
         description="Size Limit:1.5mb"
       />

@@ -1,3 +1,4 @@
+import { getSection } from "@/actions/getSection";
 import Animate from "@/components/Animate";
 import Card from "@/components/Card";
 import { Icon } from "@/components/Icons";
@@ -31,7 +32,13 @@ const outcomes = [
   },
 ];
 
-const Vip = () => {
+const Vip = async () => {
+  const data = await getSection("vipProgram");
+  if (!data) {
+    return null;
+  }
+  const content = data.content as Record<string, any>;
+
   return (
     <section>
       <div className="text-center mb-20 md:mb-64">
@@ -47,43 +54,58 @@ const Vip = () => {
         </Animate>
       </div>
       <div className="relative flex flex-col ">
-        <div className="w-screen -top-[20%] md:-top-1/2  left-1/2 -translate-x-1/2 h-[50rem] absolute -z-10">
+        <Animate
+          hidden={{ opacity: 0 }}
+          visible={{ opacity: 1 }}
+          stagger
+          options={{ offsetDelay: 0.7 }}
+          className="w-screen -top-[20%] md:-top-1/2 lg:-top-52 left-1/2 -translate-x-1/2 h-[50rem] absolute -z-10"
+        >
           <Image src={"/gradient.svg"} alt="CourseGradient" fill />
-        </div>
+        </Animate>
         <Animate
           hidden={{ opacity: 0, scale: 0.95 }}
           visible={{ opacity: 1, scale: 1 }}
           stagger
-          options={{}}
-          className="grid order-3 gap-20 w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-20 md:-translate-x-1/2 md:gap-y-20 xl:gap-y-32"
+          options={{ offsetDelay: 0.5 }}
+          className="grid order-3 gar-20 w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10 md:-translate-x-1/2 md:gap-y-20 xl:gap-y-32"
         >
-          {outcomes.map(({ title, description, icon }, i) => {
-            return (
-              <div
-                key={title}
-                className={cn(
-                  "md:max-w-48 xl:max-w-52  flex gap-2  flex-col justify-center items-center  text-center ",
-                  i % 2 && "ml-auto",
-                  i == 0 && "md:translate-x-20 xl:translate-x-32",
-                  i == 1 && "md:-translate-x-20 xl:-translate-x-32"
-                )}
-              >
-                <Icon iconName={icon} className="text-primary" size={50} />
-                <h3 className="md:text-base xl:text-lg leading-tight">
-                  {title}
-                </h3>
-                <p className="text-sm leading-tight  font-light text-muted-foreground">
-                  {description}
-                </p>
-              </div>
-            );
-          })}
+          {content.features.map(
+            (
+              {
+                title,
+                subtitle,
+                icon,
+              }: { title: string; subtitle: string; icon: string },
+              i: number
+            ) => {
+              return (
+                <div
+                  key={title}
+                  className={cn(
+                    "md:max-w-48 xl:max-w-52 h-full flex gap-2 my-auto flex-col justify-center items-center  text-center ",
+                    i % 2 && "ml-auto",
+                    i == 0 && "md:translate-x-20 xl:translate-x-24",
+                    i == 1 && "md:-translate-x-20 xl:-translate-x-24"
+                  )}
+                >
+                  <Icon iconName={icon} className="text-primary" size={50} />
+                  <h3 className="md:text-base xl:text-lg leading-tight">
+                    {title}
+                  </h3>
+                  <p className="text-sm leading-tight  font-light text-muted-foreground">
+                    {subtitle}
+                  </p>
+                </div>
+              );
+            }
+          )}
         </Animate>
         <Animate
           hidden={{ opacity: 0, transform: "translateY(10px)" }}
           visible={{ opacity: 1, transform: "translateY(0)" }}
           stagger
-          options={{ margin: "0%", offsetDelay: 0.5 }}
+          options={{ margin: "0%", offsetDelay: 0.3 }}
           className="mx-auto w-fit"
         >
           <Image
@@ -115,10 +137,7 @@ const Vip = () => {
                 </span>
               </div>
               <p className="max-w-xl text-[0.53rem] md:text-sm xl:text-md">
-                <span className="text-primary">Trenlines</span> is your key to
-                success, offering personalized mentorship, exclusive network
-                access, assisted trading, and daily mentor meetings to guide you
-                in making the most of these opportunities.
+                {content.description}
               </p>
             </div>
             <div className="text-center font-light z-10">

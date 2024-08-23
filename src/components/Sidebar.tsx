@@ -22,7 +22,7 @@ const Sidebar = () => {
   console.log(path.includes("header"));
 
   return (
-    <div className="w-52 rounded-xl h-[95svh] fixed top-1/2 -translate-y-1/2 flex place-items-center   overflow-hidden bg-card text-md px-9">
+    <div className="w-52 rounded-xl h-[95svh] fixed top-1/2 -translate-y-1/2 flex place-items-center   overflow-hidden bg-popover text-md px-9">
       <div className="w-40 h-64 bg-accent blur-3xl absolute  left-1/2 bottom-1/2"></div>
       <ul className="space-y-10 relative z-10">
         {sections.map((section, i) => {

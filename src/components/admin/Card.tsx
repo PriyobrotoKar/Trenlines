@@ -34,6 +34,8 @@ import ColorPicker from "../ColorPicker";
 import { type } from "os";
 import { Button } from "../ui/button";
 import { uploadImage } from "@/actions/uploadImage";
+import { Icon } from "../Icons";
+import IconPicker from "../IconPicker";
 
 type DefaultValue = {
   title: string;
@@ -54,7 +56,7 @@ const Card = ({
   return (
     <div
       className={cn(
-        "py-12 px-14 flex items-center justify-between gap-20 w-fit bg-card rounded-3xl",
+        "py-12 px-14 flex items-center justify-between gap-20 w-fit bg-popover rounded-3xl",
         className
       )}
     >
@@ -72,29 +74,40 @@ const Card = ({
 Card.ImageUpload = function ImageUpload({
   title,
   description,
+  aspectRatio,
   value,
   register,
   setValue,
 }: DefaultValue & {
+  aspectRatio: number;
   value: string;
   register: UseFormRegister<any>;
   setValue: UseFormSetValue<any>;
 }) {
   const [open, setOpen] = useState(false);
-  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
+  const [image, setImage] = useState<{
+    file: string | ArrayBuffer;
+    type: string;
+  } | null>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
 
   const handleCrop = async () => {
     const cropper = cropperRef.current?.cropper;
     if (!cropper) return;
-    const croppedImage = cropper.getCroppedCanvas().toDataURL();
+    const croppedImage = cropper.getCroppedCanvas().toDataURL(image?.type);
+    let size_in_bytes = window.atob(croppedImage.split(",")[1]).length;
+
+    console.log(size_in_bytes);
     const imageUrl = await uploadImage(croppedImage);
     setValue("image", imageUrl);
   };
   return (
     <Card title={title} description={description}>
       <label htmlFor="imageInput">
-        <div className="size-16 border  border-dashed bg-muted rounded-xl overflow-hidden">
+        <div
+          style={{ aspectRatio: aspectRatio }}
+          className="h-16 border  border-dashed bg-muted rounded-xl overflow-hidden"
+        >
           <Image
             src={value}
             alt="Image"
@@ -110,7 +123,11 @@ Card.ImageUpload = function ImageUpload({
         id="imageInput"
         onChange={(e) => {
           if (!e.target.files || e.target.files.length === 0) return;
-          setImage(URL.createObjectURL(e.target.files[0]));
+          console.log(e.target.files[0].type);
+          setImage({
+            file: URL.createObjectURL(e.target.files[0]),
+            type: e.target.files[0].type,
+          });
           setOpen(true);
         }}
         accept="image/*"
@@ -119,10 +136,10 @@ Card.ImageUpload = function ImageUpload({
       <Dialog open={open} onOpenChange={(open) => setOpen(!open)}>
         <DialogContent>
           <Cropper
-            src={image as string}
+            src={image?.file as string}
             style={{ height: 400, width: "100%" }}
             // Cropper.js options
-            initialAspectRatio={16 / 9}
+            aspectRatio={aspectRatio}
             guides={false}
             ref={cropperRef}
           />
@@ -169,7 +186,14 @@ Card.Feature = function Feature({
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="flex gap-6">
-        <div></div>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div className="size-10 rounded-xl border border-dashed"></div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="grid grid-cols-4 gap-4 rounded-xl p-6  max-w-[18rem]">
+            <IconPicker />
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Input
           type="text"
           placeholder="Title"

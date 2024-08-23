@@ -1,5 +1,5 @@
 "use client";
-import { animate, useInView } from "framer-motion";
+import { animate, cubicBezier, useInView } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 
 const FollowerCount = ({
@@ -21,7 +21,8 @@ const FollowerCount = ({
 
     const controls = animate(initial, final, {
       duration: 3,
-      ease: "easeOut",
+      ease: cubicBezier(0.88, 0.01, 0.36, 1),
+
       onUpdate(value) {
         element.textContent = value.toFixed(1);
       },
@@ -32,7 +33,7 @@ const FollowerCount = ({
     };
   }, [final, initial, ref, inView]);
   return (
-    <div className="text-xl md:text-2xl font-bold">
+    <div className="text-xl  md:text-2xl font-bold">
       <span ref={ref}>44.8</span>
       <span className="text-base md:text-xl">K</span>
     </div>

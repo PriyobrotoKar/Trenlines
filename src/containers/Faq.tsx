@@ -9,6 +9,7 @@ import Card from "@/components/Card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Animate from "@/components/Animate";
+import { getSection } from "@/actions/getSection";
 
 const faqs = [
   {
@@ -34,12 +35,24 @@ const faqs = [
   },
 ];
 
-const Faq = () => {
+const Faq = async () => {
+  const data = await getSection("faq");
+  if (!data) {
+    return null;
+  }
+  const content = data.content as Record<string, any>;
+
   return (
     <section className="flex justify-center   items-center overflow-visible relative space-y-20 md:space-y-32 flex-col">
-      <div className="absolute  w-svw h-[60rem] -z-10 -top-56  md:-top-20">
+      <Animate
+        hidden={{ opacity: 0 }}
+        visible={{ opacity: 1 }}
+        stagger
+        options={{ offsetDelay: 0.7 }}
+        className="absolute  w-svw h-[60rem] -z-10 -top-56  md:-top-20"
+      >
         <Image src={"/gradient2.svg"} alt="Gradient2" fill />
-      </div>
+      </Animate>
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
@@ -58,24 +71,30 @@ const Faq = () => {
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
         options={{ margin: "0%", offsetDelay: 0.5 }}
+        className="w-full"
       >
-        <Card className="max-w-[64rem] py-8 ">
+        <Card className="py-8 ">
           <Accordion type="single" collapsible className="">
-            {faqs.map(({ question, answer }, i) => {
-              return (
-                <AccordionItem
-                  key={i}
-                  value={`item-${i}`}
-                  className={cn(
-                    "py-4 text-left ",
-                    i === faqs.length - 1 && "border-b-0"
-                  )}
-                >
-                  <AccordionTrigger>{question}</AccordionTrigger>
-                  <AccordionContent>{answer}</AccordionContent>
-                </AccordionItem>
-              );
-            })}
+            {content.questions.map(
+              (
+                { question, answer }: { question: string; answer: string },
+                i: number
+              ) => {
+                return (
+                  <AccordionItem
+                    key={i}
+                    value={`item-${i}`}
+                    className={cn(
+                      "py-4 text-left ",
+                      i === faqs.length - 1 && "border-b-0"
+                    )}
+                  >
+                    <AccordionTrigger>{question}</AccordionTrigger>
+                    <AccordionContent>{answer}</AccordionContent>
+                  </AccordionItem>
+                );
+              }
+            )}
           </Accordion>
         </Card>
       </Animate>

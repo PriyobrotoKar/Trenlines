@@ -5,6 +5,11 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "3mb",
+    },
+  },
   images: {
     domains: ["lh3.googleusercontent.com", "res.cloudinary.com"],
   },

@@ -4,8 +4,20 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { YoutubeEmbed } from "./YoutubeEmbed";
+import { getSection } from "@/actions/getSection";
+import { JsonObject } from "@prisma/client/runtime/library";
 
-export const Herosection = () => {
+export const Herosection = async () => {
+  const data = await getSection("heroSection");
+
+  if (!data) {
+    return null;
+  }
+
+  console.log(data.content);
+
+  const content = data.content as Record<string, string>;
+
   return (
     <section className="min-h-[70vh] ">
       <div className="absolute w-full h-full inset-0 -z-10 ">
@@ -49,9 +61,11 @@ export const Herosection = () => {
               className="text-center space-y-8"
             >
               <YoutubeEmbed className="flex md:hidden" />
-              <Button className="gap-2">
-                Save My Seat <Icons.LinkArrow />
-              </Button>
+              <a href={content.ctaLink}>
+                <Button className="gap-2">
+                  {content.ctaLabel} <Icons.LinkArrow />
+                </Button>
+              </a>
               <div className="flex gap-4 justify-center items-center">
                 <div className="inline-flex">
                   {[...Array(4).fill("/people1.svg")].map((img, i) => {

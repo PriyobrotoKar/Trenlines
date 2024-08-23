@@ -40,13 +40,10 @@ const Page = ({ params }: { params: { section: string } }) => {
     values: data?.content as z.infer<typeof InputSchema>,
   });
 
-  // if (!data?.content) {
-  //   return null;
-  // }
-
   return (
     <>
       <Card.ImageUpload
+        aspectRatio={1}
         value={(data?.content as z.infer<typeof InputSchema>)?.image}
         register={register}
         setValue={setValue}
@@ -54,9 +51,6 @@ const Page = ({ params }: { params: { section: string } }) => {
         description="Replace with a 1:1 logo mark"
       />
       <Card.CallToAction register={register} />
-      {/* {(errors.ctaLabel || errors.ctaLink) && (
-        <p>{errors.ctaLabel?.message || errors.ctaLink?.message}</p>
-      )} */}
     </>
   );
 };

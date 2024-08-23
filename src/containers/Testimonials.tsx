@@ -1,3 +1,4 @@
+import { getSection } from "@/actions/getSection";
 import Animate from "@/components/Animate";
 import { Button } from "@/components/ui/button";
 import { readdirSync } from "fs";
@@ -5,9 +6,15 @@ import Image from "next/image";
 import path from "path";
 import React from "react";
 
-const Testimonials = () => {
+const Testimonials = async () => {
   const dir = path.join(process.cwd(), "public/testimonials");
   const testimonials = readdirSync(dir);
+
+  const data = await getSection("testimonials");
+  if (!data) {
+    return null;
+  }
+  const content = data.content as Record<string, string>;
 
   return (
     <section className="">
@@ -33,7 +40,7 @@ const Testimonials = () => {
               stagger
               options={{
                 margin: "0%",
-                offsetDelay: 0.5,
+                offsetDelay: 0.7,
               }}
               key={i}
             >
@@ -56,7 +63,9 @@ const Testimonials = () => {
         options={{ margin: "0%", offsetDelay: 0.5 }}
         className="text-center space-y-4 mt-6"
       >
-        <Button>I want to achieve results like these</Button>
+        <a href={content.ctaLink}>
+          <Button>{content.ctaLabel}</Button>
+        </a>
         <p className="text-[0.6rem] md:text-sm ">
           Become our next success story.{" "}
           <span className="text-primary font-bold">Act fast.</span>

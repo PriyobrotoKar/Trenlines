@@ -1,10 +1,11 @@
+import { getSection } from "@/actions/getSection";
 import Animate from "@/components/Animate";
 import Card from "@/components/Card";
 import FollowerCount from "@/components/FollowerCount";
 import Image from "next/image";
 import React from "react";
 
-export const About = async () => {
+const getInstagramFollowers = async () => {
   const url =
     "https://instagram-scraper-api2.p.rapidapi.com/v1/info?username_or_id_or_url=trenlines";
   const options = {
@@ -18,13 +19,29 @@ export const About = async () => {
   const response = await fetch(url, options);
   const result = await response.json();
   const followerCount = result.data.follower_count / 1000;
-  console.log(result.data.follower_count);
 
+  return followerCount;
+};
+
+export const About = async () => {
+  const data = await getSection("mentor");
+  if (!data) {
+    return null;
+  }
+  const content = data.content as Record<string, string>;
+
+  const followerCount = await getInstagramFollowers();
   return (
-    <section className="flex justify-between relative  items-center  flex-col h-[25rem] md:h-[40rem]  lg:h-[48rem] my-40">
-      <div className="absolute w-svw h-[60rem] -top-64 left-1/2 -translate-x-1/2">
+    <section className="flex justify-between relative  items-center  flex-col h-[25rem] md:h-[40rem]  lg:h-[48rem] my-80">
+      <Animate
+        hidden={{ opacity: 0 }}
+        visible={{ opacity: 1 }}
+        stagger
+        options={{ offsetDelay: 0.7 }}
+        className="absolute w-svw h-[60rem] -top-64 left-1/2 -translate-x-1/2"
+      >
         <Image src={"/gradient.svg"} alt="gradient" fill className="-z-10 " />
-      </div>
+      </Animate>
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
@@ -42,7 +59,7 @@ export const About = async () => {
         stagger
         options={{ margin: "0%", offsetDelay: 0.5 }}
       >
-        <Card className="flex gap-2  md:gap-6 justify-between items-end max-w-screen-lg">
+        <Card className="flex gap-2  md:gap-6 justify-between items-center max-w-screen-lg">
           <div className="relative">
             <Animate
               hidden={{ opacity: 0, transform: "translateY(0px)" }}
@@ -50,8 +67,8 @@ export const About = async () => {
               stagger
               options={{ margin: "0%", staggerDelay: 0 }}
             >
-              <div className="absolute h-fit -translate-y-[50%]  inset-0">
-                <div className="w-full h-full bg-gradient-to-t from-card absolute to-30% to-transparent z-10"></div>
+              <div className="absolute w-80 h-fit -translate-y-[50%]  inset-0 left-10">
+                <div className="w-full h-full bg-gradient-to-t from-card absolute to-50% to-transparent z-10"></div>
                 <Image
                   className=""
                   src={"/samgilkes.png"}
@@ -61,7 +78,7 @@ export const About = async () => {
                 />
               </div>
             </Animate>
-            <h2 className="text-xl md:text-2xl lg:text-3xl z-10 relative font-bold max-w-sm leading-tight">
+            <h2 className="text-xl md:text-2xl lg:text-3xl z-10 relative font-bold max-w-sm leading-[1]">
               Sam Gilkes.
             </h2>
             <p className="text-primary text-sm md:text-base relative z-10">
@@ -70,18 +87,13 @@ export const About = async () => {
           </div>
           <div className="text-right space-y-4">
             <div>
-              <FollowerCount
-                initial={followerCount - 10}
-                final={followerCount}
-              />
+              <FollowerCount initial={0} final={followerCount} />
               <div className="text-[0.73rem] md:text-sm">
                 Followers on Instagram
               </div>
             </div>
             <p className="max-w-64 md:max-w-lg text-[0.53rem] md:text-sm lg:text-base  tracking-wider leading-snug">
-              &quot;I&apos;m Sam Gilkes, former lawyer, turned trader. Focused
-              on improving my skills daily and providing free value to the whole
-              of #TeamTrenlines!&quot;
+              {content.introduction}
             </p>
           </div>
         </Card>
