@@ -1,13 +1,17 @@
 import { auth } from "@/lib/auth";
 import { getTimeOfDay } from "@/lib/utils";
+import { useSyncIndicator } from "@/providers/SyncIndicatorProvider";
 import Image from "next/image";
 import React from "react";
+import { Icon } from "../Icons";
+import SyncIndicator from "./SyncIndicator";
 
 const Header = async () => {
   const session = await auth();
   console.log(session);
   if (!session || !session.user) return null;
   const timeOfDay = getTimeOfDay();
+
   return (
     <header className="flex justify-between items-center">
       <div>
@@ -18,10 +22,7 @@ const Header = async () => {
           <p className="text-md font-light text-muted-foreground">
             Let&apos;s manage content on{" "}
           </p>
-          <span className="pl-2 text-sm pr-4 py-1 rounded-full inline-flex gap-2 items-center bg-muted w-fit">
-            <span className="size-4 inline-block rounded-full bg-green-400"></span>
-            trenlines.co
-          </span>
+          <SyncIndicator />
         </div>
       </div>
       <div>

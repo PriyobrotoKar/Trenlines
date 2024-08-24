@@ -1,4 +1,5 @@
 import { updateSection } from "@/actions/updateSection";
+import { useSyncIndicator } from "@/providers/SyncIndicatorProvider";
 import React, { useCallback, useEffect } from "react";
 import {
   DeepPartial,
@@ -7,6 +8,8 @@ import {
   Path,
   useForm,
   UseFormProps,
+  UseFormReturn,
+  UseFormWatch,
   useWatch,
 } from "react-hook-form";
 import { ZodSchema } from "zod";
@@ -16,6 +19,7 @@ const useAutoSaveForm = <T extends FieldValues>(
   sectionName: string,
   options?: UseFormProps<T>
 ) => {
+  const form = useForm<T>(options);
   const {
     register,
     watch,
@@ -24,8 +28,9 @@ const useAutoSaveForm = <T extends FieldValues>(
     clearErrors,
     control,
     formState: { isValid, errors },
-    setValue,
-  } = useForm<T>(options);
+  } = form;
+
+  const { setSyncing } = useSyncIndicator();
 
   const watchValues = useWatch({ control });
 
@@ -41,27 +46,31 @@ const useAutoSaveForm = <T extends FieldValues>(
             message: error.message,
           });
         });
+        setSyncing(false);
         return;
       }
       clearErrors();
       console.log("Save to", sectionName, data);
       updateSection(sectionName, data);
+      setSyncing(false);
     },
-    [schema, setError, clearErrors, sectionName]
+    [schema, setError, clearErrors, sectionName, setSyncing]
   );
 
   useEffect(() => {
+    setSyncing(true);
     let timeout: NodeJS.Timeout;
     //auto save to db on change with a debounce
     timeout = setTimeout(() => {
       onSubmit(watchValues);
     }, 1000);
     return () => {
+      setSyncing(false);
       clearTimeout(timeout);
     };
-  }, [watchValues, handleSubmit, onSubmit]);
+  }, [watchValues, handleSubmit, onSubmit, setSyncing]);
 
-  return { register, watch, errors, setValue };
+  return { ...form, watch } as UseFormReturn<T> & UseFormWatch<T>;
 };
 
 export default useAutoSaveForm;

@@ -11,16 +11,21 @@ import React, {
 } from "react";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import {
+  UseFormRegister,
+  UseFormReturn,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import Image from "next/image";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import {
   Dialog,
   DialogContent,
@@ -98,6 +103,7 @@ Card.ImageUpload = function ImageUpload({
     let size_in_bytes = window.atob(croppedImage.split(",")[1]).length;
 
     console.log(size_in_bytes);
+    setOpen(false);
     const imageUrl = await uploadImage(croppedImage);
     setValue("image", imageUrl);
   };
@@ -143,7 +149,24 @@ Card.ImageUpload = function ImageUpload({
             guides={false}
             ref={cropperRef}
           />
-          <Button onClick={handleCrop}>Crop</Button>
+          <div className="flex gap-4">
+            <Button
+              className="w-full"
+              onClick={() => setOpen(false)}
+              size={"sm"}
+              variant={"destructive"}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="w-full"
+              onClick={handleCrop}
+              size={"sm"}
+              variant={"secondary"}
+            >
+              Crop
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </Card>
@@ -181,19 +204,19 @@ Card.Feature = function Feature({
   title,
   description,
   ind,
-  register,
-}: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
+  form: { register, setValue, getValues },
+}: DefaultValue & {
+  ind: number;
+  form: UseFormReturn<any> & UseFormWatch<any>;
+}) {
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="flex gap-6">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <div className="size-10 rounded-xl border border-dashed"></div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="grid grid-cols-4 gap-4 rounded-xl p-6  max-w-[18rem]">
-            <IconPicker />
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <IconPicker
+          setValue={setValue}
+          getValues={getValues}
+          name={`features.${ind}.icon`}
+        />
         <Input
           type="text"
           placeholder="Title"
@@ -236,12 +259,16 @@ Card.Link = function Link({
   title,
   description,
   ind,
-  register,
-}: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
+  form: { register, setValue, getValues },
+}: DefaultValue & { ind: number; form: UseFormReturn<any> }) {
   return (
     <Card title={title} description={description} className="gap-20">
       <div className="flex gap-4">
-        <div></div>
+        <IconPicker
+          setValue={setValue}
+          getValues={getValues}
+          name={`links.${ind}.icon`}
+        />
         <Input
           type="text"
           placeholder="Link"

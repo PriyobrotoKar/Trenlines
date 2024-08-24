@@ -28,17 +28,19 @@ const Page = ({ params }: { params: { section: string } }) => {
     queryFn: async () => await getSection("header"),
   });
 
-  const { register, errors, setValue } = useAutoSaveForm<
-    z.infer<typeof InputSchema>
-  >(InputSchema, "header", {
-    resolver: zodResolver(InputSchema),
-    defaultValues: {
-      image: "",
-      ctaLabel: "",
-      ctaLink: "",
-    },
-    values: data?.content as z.infer<typeof InputSchema>,
-  });
+  const { register, setValue } = useAutoSaveForm<z.infer<typeof InputSchema>>(
+    InputSchema,
+    "header",
+    {
+      resolver: zodResolver(InputSchema),
+      defaultValues: {
+        image: "",
+        ctaLabel: "",
+        ctaLink: "",
+      },
+      values: data?.content as z.infer<typeof InputSchema>,
+    }
+  );
 
   return (
     <>
