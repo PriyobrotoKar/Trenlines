@@ -13,26 +13,27 @@ const Header = async () => {
   const timeOfDay = getTimeOfDay();
 
   return (
-    <header className="flex justify-between items-center">
+    <header className="flex flex-row-reverse md:flex-row gap-4 justify-end md:justify-between items-center">
       <div>
-        <h1 className="text-xl">
+        <h1 className="md:text-xl">
           Good {timeOfDay}, <span className="text-primary">Sam</span>
         </h1>
-        <div className=" flex gap-2 items-center">
+        <div className="hidden md:flex gap-2 items-center">
           <p className="text-md font-light text-muted-foreground">
             Let&apos;s manage content on{" "}
           </p>
           <SyncIndicator />
         </div>
       </div>
-      <div>
+      <div className="relative">
         <Image
-          className="rounded-full"
+          className="rounded-full size-8 md:size-auto"
           src={session.user.image || session.user.name![0].toUpperCase()}
           alt="profile"
           width={60}
           height={60}
         />
+        <SyncIndicator />
       </div>
     </header>
   );

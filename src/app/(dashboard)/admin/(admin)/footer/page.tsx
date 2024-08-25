@@ -54,9 +54,8 @@ const Page = () => {
         Branding
       </h2>
       <Card.ImageUpload
-        register={form.register}
         aspectRatio={1}
-        setValue={form.setValue}
+        form={form}
         value={(data?.content as z.infer<typeof InputSchema>)?.image}
         title="Brand Logo"
         description="Replace with a logo"

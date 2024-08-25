@@ -12,6 +12,7 @@ import React, {
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import {
+  UseFormGetValues,
   UseFormRegister,
   UseFormReturn,
   UseFormSetValue,
@@ -61,13 +62,13 @@ const Card = ({
   return (
     <div
       className={cn(
-        "py-12 px-14 flex items-center justify-between gap-20 w-fit bg-popover rounded-3xl",
+        "p-6 md:py-12 md:px-14 flex items-center justify-between gap-6 md:gap-20 w-fit bg-popover rounded-3xl",
         className
       )}
     >
-      <div className="space-y-2">
-        <div className="text-lg">{title}</div>
-        <div className="text-sm font-light text-muted-foreground">
+      <div className="md:space-y-2">
+        <div className="md:text-lg">{title}</div>
+        <div className="text-[0.72rem] md:text-sm font-light text-muted-foreground">
           {description}
         </div>
       </div>
@@ -81,13 +82,13 @@ Card.ImageUpload = function ImageUpload({
   description,
   aspectRatio,
   value,
-  register,
-  setValue,
+  form: { register, setValue },
+  name = "image",
 }: DefaultValue & {
-  aspectRatio: number;
+  aspectRatio?: number;
   value: string;
-  register: UseFormRegister<any>;
-  setValue: UseFormSetValue<any>;
+  form: UseFormReturn<any>;
+  name?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<{
@@ -102,31 +103,33 @@ Card.ImageUpload = function ImageUpload({
     const croppedImage = cropper.getCroppedCanvas().toDataURL(image?.type);
     let size_in_bytes = window.atob(croppedImage.split(",")[1]).length;
 
-    console.log(size_in_bytes);
     setOpen(false);
     const imageUrl = await uploadImage(croppedImage);
-    setValue("image", imageUrl);
+
+    setValue(name, imageUrl);
   };
   return (
     <Card title={title} description={description}>
-      <label htmlFor="imageInput">
+      <label htmlFor={name + "Input"}>
         <div
           style={{ aspectRatio: aspectRatio }}
           className="h-16 border  border-dashed bg-muted rounded-xl overflow-hidden"
         >
-          <Image
-            src={value}
-            alt="Image"
-            width={80}
-            height={80}
-            className="object-cover w-full h-full"
-          />
+          {(value || image?.file) && (
+            <Image
+              src={value || (image?.file as string)}
+              alt="Image"
+              width={80}
+              height={80}
+              className="object-cover w-full h-full"
+            />
+          )}
         </div>
       </label>
-      <input type="text" {...register("image")} className="hidden" />
+      <input type="text" {...register(name)} className="hidden" />
       <input
         type="file"
-        id="imageInput"
+        id={name + "Input"}
         onChange={(e) => {
           if (!e.target.files || e.target.files.length === 0) return;
           console.log(e.target.files[0].type);
@@ -179,7 +182,11 @@ Card.CallToAction = function CallToAction({
   register,
 }: Partial<DefaultValue> & { register: UseFormRegister<any> }) {
   return (
-    <Card title={title} description={description} className="gap-20">
+    <Card
+      title={title}
+      description={description}
+      className="flex-col items-start"
+    >
       <div className="flex gap-4">
         <Input type="text" placeholder="Label" {...register("ctaLabel")} />
         <Input type="text" placeholder="Link" {...register("ctaLink")} />
@@ -194,7 +201,11 @@ Card.LargeText = function LargeText({
   register,
 }: DefaultValue & { register: UseFormRegister<any> }) {
   return (
-    <Card title={title} description={description} className="gap-20">
+    <Card
+      title={title}
+      description={description}
+      className="flex-col items-start w-full md:w-fit"
+    >
       <Textarea {...register(title.toLowerCase())} />
     </Card>
   );
@@ -210,8 +221,8 @@ Card.Feature = function Feature({
   form: UseFormReturn<any> & UseFormWatch<any>;
 }) {
   return (
-    <Card title={title} description={description} className="gap-20">
-      <div className="flex gap-6">
+    <Card title={title} description={description} className="flex-wrap">
+      <div className="flex gap-2 md:gap-6">
         <IconPicker
           setValue={setValue}
           getValues={getValues}
@@ -239,8 +250,12 @@ Card.Question = function Question({
   register,
 }: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
   return (
-    <Card title={title} description={description} className="gap-20">
-      <div className="space-y-4">
+    <Card
+      title={title}
+      description={description}
+      className="items-start flex-wrap"
+    >
+      <div className="space-y-4 w-full">
         <Input
           type="text"
           placeholder="Question"
@@ -262,8 +277,12 @@ Card.Link = function Link({
   form: { register, setValue, getValues },
 }: DefaultValue & { ind: number; form: UseFormReturn<any> }) {
   return (
-    <Card title={title} description={description} className="gap-20">
-      <div className="flex gap-4">
+    <Card
+      title={title}
+      description={description}
+      className="items-start flex-wrap"
+    >
+      <div className="flex gap-2 md:gap-4 w-full">
         <IconPicker
           setValue={setValue}
           getValues={getValues}
@@ -281,12 +300,10 @@ Card.Link = function Link({
 
 Card.Affiliate = function Affiliate({
   ind,
-  register,
-  setValue,
+  form: { register, setValue, getValues },
 }: {
   ind: number;
-  register: UseFormRegister<any>;
-  setValue: UseFormSetValue<any>;
+  form: UseFormReturn<any>;
 }) {
   const [color, setColor] = useState("");
 
@@ -298,13 +315,16 @@ Card.Affiliate = function Affiliate({
     <Card
       title={"Properties"}
       description={"Modify Properties"}
-      className="gap-20"
+      className="flex-wrap "
     >
-      <div className="flex gap-4">
+      <div className="flex gap-2 md:gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <div
-              style={{ backgroundColor: color }}
+              style={{
+                backgroundColor:
+                  color || getValues(`affliates.${ind}.properties.color`),
+              }}
               className="size-10 flex-shrink-0 rounded-xl border border-dashed"
             ></div>
           </DropdownMenuTrigger>

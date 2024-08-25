@@ -6,6 +6,7 @@ import React from "react";
 import { YoutubeEmbed } from "./YoutubeEmbed";
 import { getSection } from "@/actions/getSection";
 import { JsonObject } from "@prisma/client/runtime/library";
+import JournalModal from "@/components/JournalModal";
 
 export const Herosection = async () => {
   const data = await getSection("heroSection");
@@ -90,6 +91,7 @@ export const Herosection = async () => {
               </div>
             </Animate>
             <YoutubeEmbed className="hidden md:flex" />
+            <JournalModal />
           </Animate>
         </Animate>
       </main>

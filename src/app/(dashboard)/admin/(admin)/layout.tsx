@@ -10,7 +10,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       <Sidebar />
       <ReactQueryProvider>
         <SyncIndicatorProvider>
-          <div className="space-y-10 w-full ml-[16rem]">
+          <div className="space-y-10 w-full lg:ml-[16rem]">
             <Header />
             {children}
           </div>

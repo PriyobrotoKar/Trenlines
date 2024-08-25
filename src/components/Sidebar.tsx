@@ -13,6 +13,7 @@ const sections = [
   "Testimonials",
   "FAQ",
   "Footer",
+  "Emails",
 ];
 
 const getPath = (name: string) => {
@@ -24,7 +25,7 @@ const Sidebar = () => {
   console.log(path);
 
   return (
-    <div className="w-52 rounded-xl h-[95svh] fixed top-1/2 -translate-y-1/2 flex place-items-center   overflow-hidden bg-popover text-md px-9">
+    <div className="hidden lg:flex w-52 rounded-xl h-[95svh] fixed top-1/2 -translate-y-1/2  place-items-center   overflow-hidden bg-popover text-md px-9">
       <ul className="space-y-10">
         {sections.map((section, i) => {
           return (

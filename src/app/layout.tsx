@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localfont from "next/font/local";
 import Header from "@/components/Header";
+import { Red_Hat_Display } from "next/font/google";
+
+const redHatDisplay = Red_Hat_Display({
+  subsets: ["latin"],
+});
 
 const AeonikFont = localfont({
   src: [
@@ -35,7 +40,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${AeonikFont.className} text-base overflow-x-hidden`}>
+      <body
+        className={`${redHatDisplay.className} text-base overflow-x-hidden`}
+      >
         {children}
       </body>
     </html>
