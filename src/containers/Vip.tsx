@@ -68,7 +68,7 @@ const Vip = async () => {
           visible={{ opacity: 1, scale: 1 }}
           stagger
           options={{ offsetDelay: 0.5 }}
-          className="grid order-3 gar-20 w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10 md:-translate-x-1/2 md:gap-y-20 xl:gap-y-32"
+          className="grid order-3 gar-20 w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10 md:-translate-x-1/2 gap-y-14 md:gap-y-20 xl:gap-y-32"
         >
           {content.features.map(
             (
@@ -142,16 +142,16 @@ const Vip = async () => {
             </div>
             <div className="text-center font-light z-10">
               <div className="line-through text-[0.6rem] md:text-sm">
-                Starting $649.98 / m
+                Starting {content.pricing.initial} / m
               </div>
               <div className="md:text-xl xl:text-2xl text-primary font-bold tracking-wide">
-                $389.99
+                {content.pricing.discount}
               </div>
               <Button>Enroll Now</Button>
-              {/* //TODO: Add secured payment logo */}
-              <p className="text-[0.53rem] md:text-sm mt-2 md:mt-4">
-                Secured Payment
-              </p>
+              <div className="mt-2 md:mt-4 flex gap-2 justify-center">
+                <Icon iconName="SecurityLockIcon" size={20} />
+                <p className="text-[0.53rem] md:text-sm ">Secured Payment</p>
+              </div>
             </div>
           </Card>
         </Animate>

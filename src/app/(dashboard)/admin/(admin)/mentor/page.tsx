@@ -13,7 +13,10 @@ type Inputs = {
 };
 
 const InputSchema = z.object({
-  introduction: z.string().min(1, { message: "Introduction is required" }),
+  introduction: z
+    .string()
+    .min(1, { message: "Introduction is required" })
+    .max(150, { message: "Introduction must be less than 150 characters" }),
 });
 
 const Page = () => {
@@ -22,7 +25,7 @@ const Page = () => {
     queryFn: async () => await getSection("mentor"),
   });
 
-  const { register } = useAutoSaveForm<z.infer<typeof InputSchema>>(
+  const form = useAutoSaveForm<z.infer<typeof InputSchema>>(
     InputSchema,
     "mentor",
     {
@@ -37,7 +40,9 @@ const Page = () => {
       <Card.LargeText
         title="Introduction"
         description="Edit personal info"
-        register={register}
+        form={form}
+        max={150}
+        name="introduction"
       />
     </>
   );

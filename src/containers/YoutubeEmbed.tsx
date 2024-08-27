@@ -24,15 +24,7 @@ export const YoutubeEmbed = async ({ className }: { className?: string }) => {
         className
       )}
     >
-      {/* <Animate
-        hidden={{ opacity: 0, transform: "translateY(20px)" }}
-        visible={{ opacity: 1, transform: "translateY(0)" }}
-        stagger
-        options={{ margin: "0%", offsetDelay: 1 }}
-        className="w-full"
-      > */}
       <Player videoId={result.data[0].videoId} />
-      {/* </Animate> */}
     </section>
   );
 };

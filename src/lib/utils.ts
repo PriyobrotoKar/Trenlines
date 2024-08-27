@@ -31,3 +31,14 @@ export const getTimeOfDay = () => {
     return "Evening";
   }
 };
+
+export const downloadCsv = (data: string, name: string) => {
+  const blob = new Blob([data], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.download = name;
+  a.href = url;
+  // document.appendChild(a);
+  a.click();
+  // document.removeChild(a)
+};

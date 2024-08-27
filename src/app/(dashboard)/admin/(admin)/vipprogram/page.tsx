@@ -20,6 +20,10 @@ const InputSchema = z.object({
       subtitle: z.string().min(1, { message: "Description is required" }),
     })
   ),
+  pricing: z.object({
+    initial: z.string().min(1, { message: "Initial is required" }),
+    discount: z.string().min(1, { message: "Discount is required" }),
+  }),
   description: z.string().min(1, { message: "Description is required" }),
 });
 
@@ -40,6 +44,10 @@ const Page = () => {
           title: "",
           subtitle: "",
         }),
+        pricing: {
+          initial: "",
+          discount: "",
+        },
         description: "",
       },
       values: data?.content as z.infer<typeof InputSchema>,
@@ -60,6 +68,14 @@ const Page = () => {
           description="Modify Properties"
         />
       ))}
+      <h2 className="text-md tracking-wider font-light  uppercase pt-5">
+        Pricing
+      </h2>
+      <Card.Pricing
+        title="Pricing"
+        description="Enter pricing info"
+        form={form}
+      />
       <h2 className="text-md tracking-wider font-light  uppercase pt-5">
         Program
       </h2>

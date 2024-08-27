@@ -1,47 +1,50 @@
-import { Icons } from "@/components/Icons";
-import LinkIcon from "@/components/LinkIcon";
+import { getSection } from "@/actions/getSection";
+import { Icon, Icons } from "@/components/Icons";
 import Image from "next/image";
 import React from "react";
 
-const socials = [
-  "https://tiktok.com",
-  "https://instagram.com",
-  "https://discord.gg",
-  "https://youtube.com",
-];
-
-export const Footer = () => {
+export const Footer = async () => {
+  const data = await getSection("footer");
+  if (!data) {
+    return null;
+  }
+  const content = data.content as Record<string, any>;
   return (
-    <footer className="text-center  relative space-y-6 pb-10 pt-48 overflow-hidden">
+    <footer className="text-center relative  space-y-8 pb-10 pt-48">
       <Image
-        src={"logo.svg"}
-        className="mx-auto"
+        src={content.image}
+        className="mx-auto w-20 md:w-36"
         alt="Logo Large"
         width={150}
         height={150}
       />
-      <p className="font-light text-sm text-muted tracking-widest">
-        THE PROGRAM ITSELF DOES NOT GUARENTEE SUCCESS, ONE MUST FOLLOW AND
-        IMPLIMENT.
+      <p className="font-light text-[0.63rem] md:text-sm text-muted tracking-widest">
+        {content.disclaimer}
       </p>
-      <div className="space-x-2">
-        {socials.map((link) => {
-          return <LinkIcon link={link} key={link} />;
+      <div className="flex gap-2 items-center justify-center">
+        {content.links.map(({ icon, link }: { icon: string; link: string }) => {
+          return (
+            <a href={link} key={icon}>
+              <Icon iconName={icon} size={28} />
+            </a>
+          );
         })}
       </div>
-      <p className="flex gap-2 justify-center items-center text-sm font-light text-muted-foreground">
+      <p className="flex gap-2 justify-center items-center text-[0.6rem] md:text-sm font-light text-muted-foreground">
         <Icons.Copyright />
         <span className="leading-tight tracking-widest">
-          ALL RIGHTS RESERVED
+          {content.copyright}
         </span>
       </p>
-      <Image
-        src={"/gradient2.svg"}
-        alt="gradientFooter"
-        fill
-        className=" -z-10    absolute"
-        style={{ top: "50%" }}
-      ></Image>
+      <div className="w-svw absolute h-[20rem] left-1/2 -z-10 -translate-x-1/2 -bottom-0 overflow-hidden">
+        <Image
+          src={"/gradient2.svg"}
+          alt="gradientFooter"
+          className=" -z-10 w-full    relative -bottom-20 md:bottom-0"
+          width={600}
+          height={400}
+        ></Image>
+      </div>
     </footer>
   );
 };

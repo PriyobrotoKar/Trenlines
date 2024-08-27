@@ -1,5 +1,6 @@
 import { getSection } from "@/actions/getSection";
 import Animate from "@/components/Animate";
+import { GlareCard } from "@/components/ui/glare-card";
 import Image from "next/image";
 import React, { Fragment } from "react";
 
@@ -50,14 +51,9 @@ const Resources = async () => {
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="w-screen -top-[20%] md:-top-1/2 lg:-top-52 left-1/2 -translate-x-1/2 h-[50rem] absolute -z-10"
+        className="w-screen  -top-[20%] md:-top-40 lg:-top-52 left-1/2 -translate-x-1/2 h-[50rem] absolute -z-10"
       >
-        <Image
-          src={"/gradient2.svg"}
-          alt="Gradient2"
-          className="scale-150"
-          fill
-        />
+        <Image src={"/gradient2.svg"} alt="Gradient2" className="" fill />
       </Animate>
 
       <Animate
@@ -91,8 +87,8 @@ const Resources = async () => {
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
         options={{ margin: "0%" }}
-        className="flex justify-center flex-wrap gap-4 md:gap-10 mt-14 w-full"
-        childClassNames="md:flex-[1_0_auto]  max-w-[12rem] md:max-w-[20rem]   relative h-[16rem] md:h-[20rem] lg:h-[24rem] rounded-xl overflow-hidden flex flex-col justify-between p-8 items-center gap-2"
+        className="will-change-auto flex justify-center flex-wrap gap-4 md:gap-8 lg:gap-10 mt-14 "
+        childClassNames="w-fit flex-1 min-w-[9rem] md:min-w-[12rem]"
       >
         {content.affliates.map(
           (
@@ -104,10 +100,13 @@ const Resources = async () => {
             i: number
           ) => {
             return (
-              <Fragment key={i}>
+              <GlareCard
+                className="md:flex-[1_0_auto]     relative   h-full rounded-xl overflow-hidden flex flex-col justify-between p-4 md:p-8 items-center gap-2"
+                key={i}
+              >
                 <div
                   style={{
-                    background: `linear-gradient(0deg,${card.properties.color}50 ,transparent 60%)`,
+                    background: `linear-gradient(0deg,${card.properties.color} ,transparent 60%)`,
                   }}
                   className="bg-gradient-to-t z-10 from-accent to-transparent w-full h-full absolute inset-0 "
                 ></div>
@@ -117,6 +116,7 @@ const Resources = async () => {
                   stagger
                   options={{ margin: "0%" }}
                   className="absolute w-full h-full inset-0 "
+                  childClassNames="h-full"
                 >
                   <Image
                     src={card.image}
@@ -137,7 +137,7 @@ const Resources = async () => {
                     height={100}
                   />
                 </div>
-              </Fragment>
+              </GlareCard>
             );
           }
         )}

@@ -62,11 +62,11 @@ const Card = ({
   return (
     <div
       className={cn(
-        "p-6 md:py-12 md:px-14 flex items-center justify-between gap-6 md:gap-20 w-fit bg-popover rounded-3xl",
+        "p-6 md:py-12 md:px-14 group flex items-start md:items-center justify-between gap-6 md:gap-20  md:max-w-fit bg-popover rounded-3xl relative",
         className
       )}
     >
-      <div className="md:space-y-2">
+      <div className="md:space-y-2 flex-[1_0_auto]">
         <div className="md:text-lg">{title}</div>
         <div className="text-[0.72rem] md:text-sm font-light text-muted-foreground">
           {description}
@@ -82,7 +82,7 @@ Card.ImageUpload = function ImageUpload({
   description,
   aspectRatio,
   value,
-  form: { register, setValue },
+  form: { register, setValue, getValues },
   name = "image",
 }: DefaultValue & {
   aspectRatio?: number;
@@ -100,24 +100,36 @@ Card.ImageUpload = function ImageUpload({
   const handleCrop = async () => {
     const cropper = cropperRef.current?.cropper;
     if (!cropper) return;
-    const croppedImage = cropper.getCroppedCanvas().toDataURL(image?.type);
+    const croppedImage = cropper
+      .getCroppedCanvas({
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: "high",
+      })
+      .toDataURL(image?.type, 1);
     let size_in_bytes = window.atob(croppedImage.split(",")[1]).length;
+    setImage({ file: croppedImage, type: image?.type! });
 
     setOpen(false);
-    const imageUrl = await uploadImage(croppedImage);
+    const imageUrl = await uploadImage(croppedImage, value);
 
     setValue(name, imageUrl);
   };
+
+  useEffect(() => {
+    if (value) {
+      setImage({ file: value, type: "image/png" });
+    }
+  }, [value]);
   return (
     <Card title={title} description={description}>
       <label htmlFor={name + "Input"}>
         <div
           style={{ aspectRatio: aspectRatio }}
-          className="h-16 border  border-dashed bg-muted rounded-xl overflow-hidden"
+          className="h-16 min-w-16 border  border-dashed bg-muted rounded-xl overflow-hidden"
         >
-          {(value || image?.file) && (
+          {image?.file && (
             <Image
-              src={value || (image?.file as string)}
+              src={image?.file || getValues(name)}
               alt="Image"
               width={80}
               height={80}
@@ -143,7 +155,7 @@ Card.ImageUpload = function ImageUpload({
         className="hidden"
       />
       <Dialog open={open} onOpenChange={(open) => setOpen(!open)}>
-        <DialogContent>
+        <DialogContent className="rounded-lg w-[95%]">
           <Cropper
             src={image?.file as string}
             style={{ height: 400, width: "100%" }}
@@ -155,7 +167,10 @@ Card.ImageUpload = function ImageUpload({
           <div className="flex gap-4">
             <Button
               className="w-full"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setImage({ file: getValues(name), type: image!.type });
+                setOpen(false);
+              }}
               size={"sm"}
               variant={"destructive"}
             >
@@ -185,7 +200,7 @@ Card.CallToAction = function CallToAction({
     <Card
       title={title}
       description={description}
-      className="flex-col items-start"
+      className="flex-col md:flex-row"
     >
       <div className="flex gap-4">
         <Input type="text" placeholder="Label" {...register("ctaLabel")} />
@@ -198,15 +213,27 @@ Card.CallToAction = function CallToAction({
 Card.LargeText = function LargeText({
   title,
   description,
-  register,
-}: DefaultValue & { register: UseFormRegister<any> }) {
+  form: { register, getValues },
+  max,
+  name,
+}: DefaultValue & { form: UseFormReturn<any>; max: number; name: string }) {
   return (
     <Card
       title={title}
       description={description}
-      className="flex-col items-start w-full md:w-fit"
+      className="flex-col items-start md:items-center  md:flex-row w-full md:w-fit"
     >
-      <Textarea {...register(title.toLowerCase())} />
+      <div className="relative">
+        <Textarea {...register(title.toLowerCase())} />
+        <span
+          className={cn(
+            "text-[0.73rem] text-muted-foreground absolute bottom-0 translate-y-full right-0",
+            getValues(name).length > max && "text-destructive"
+          )}
+        >
+          {getValues(name).length}/{max}
+        </span>
+      </div>
     </Card>
   );
 };
@@ -221,7 +248,11 @@ Card.Feature = function Feature({
   form: UseFormReturn<any> & UseFormWatch<any>;
 }) {
   return (
-    <Card title={title} description={description} className="flex-wrap">
+    <Card
+      title={title}
+      description={description}
+      className="flex-col md:flex-row"
+    >
       <div className="flex gap-2 md:gap-6">
         <IconPicker
           setValue={setValue}
@@ -247,15 +278,35 @@ Card.Question = function Question({
   title,
   description,
   ind,
-  register,
-}: DefaultValue & { ind: number; register: UseFormRegister<any> }) {
+  form: { register, setValue, getValues, unregister },
+  setValues,
+  max,
+}: DefaultValue & {
+  ind: number;
+  form: UseFormReturn<any>;
+  setValues: Dispatch<SetStateAction<any>>;
+  max: number;
+}) {
   return (
     <Card
       title={title}
       description={description}
-      className="items-start flex-wrap"
+      className="flex-col md:flex-row"
     >
-      <div className="space-y-4 w-full">
+      <Icon
+        iconName="Cancel01Icon"
+        className="absolute top-4 opacity-0 group-hover:opacity-100 transition-opacity right-4 cursor-pointer"
+        size={20}
+        onClick={() => {
+          const questions = getValues("questions").filter(
+            (_: any, i: number) => i !== ind
+          );
+          setValues(questions);
+          setValue(`questions`, questions);
+          unregister(`questions.${ind}.question`);
+        }}
+      />
+      <div className="space-y-4 w-full relative">
         <Input
           type="text"
           placeholder="Question"
@@ -265,6 +316,15 @@ Card.Question = function Question({
           placeholder="Answer"
           {...register(`questions.${ind}.answer`)}
         />
+        <span
+          className={cn(
+            "text-[0.73rem] text-muted-foreground absolute bottom-0 translate-y-full right-0",
+            getValues(`questions.${ind}.answer`).length > max &&
+              "text-destructive"
+          )}
+        >
+          {getValues(`questions.${ind}.answer`).length}/{max}
+        </span>
       </div>
     </Card>
   );
@@ -280,7 +340,7 @@ Card.Link = function Link({
     <Card
       title={title}
       description={description}
-      className="items-start flex-wrap"
+      className="flex-col md:flex-row"
     >
       <div className="flex gap-2 md:gap-4 w-full">
         <IconPicker
@@ -298,6 +358,33 @@ Card.Link = function Link({
   );
 };
 
+Card.Pricing = function Pricing({
+  title,
+  description,
+  form: { register, setValue, getValues },
+}: DefaultValue & { form: UseFormReturn<any> }) {
+  return (
+    <Card
+      title={title}
+      description={description}
+      className="items-start flex-col md:flex-row"
+    >
+      <div className="flex gap-2 md:gap-4 w-full">
+        <Input
+          type="text"
+          placeholder="Initial Price"
+          {...register(`pricing.initial`)}
+        />
+        <Input
+          type="text"
+          placeholder="Discounted Price"
+          {...register(`pricing.discount`)}
+        />
+      </div>
+    </Card>
+  );
+};
+
 Card.Affiliate = function Affiliate({
   ind,
   form: { register, setValue, getValues },
@@ -308,14 +395,17 @@ Card.Affiliate = function Affiliate({
   const [color, setColor] = useState("");
 
   useEffect(() => {
-    setValue(`affliates.${ind}.properties.color`, color);
+    setValue(
+      `affliates.${ind}.properties.color`,
+      getValues(`affliates.${ind}.properties.color`)
+    );
   }, [color, setValue, ind]);
 
   return (
     <Card
       title={"Properties"}
       description={"Modify Properties"}
-      className="flex-wrap "
+      className="flex-col md:flex-row "
     >
       <div className="flex gap-2 md:gap-4">
         <DropdownMenu>

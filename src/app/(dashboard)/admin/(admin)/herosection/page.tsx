@@ -5,6 +5,7 @@ import Card from "@/components/admin/Card";
 import useAutoSaveForm from "@/hooks/useAutoSaveForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
+import { register } from "module";
 import React from "react";
 import { z } from "zod";
 
@@ -25,7 +26,7 @@ const Page = () => {
     queryFn: async () => await getSection("heroSection"),
   });
 
-  const { register, setValue } = useAutoSaveForm<z.infer<typeof InputSchema>>(
+  const form = useAutoSaveForm<z.infer<typeof InputSchema>>(
     InputSchema,
     "heroSection",
     {
@@ -42,13 +43,12 @@ const Page = () => {
     <>
       <Card.ImageUpload
         aspectRatio={16 / 9}
-        setValue={setValue}
         value={(data?.content as z.infer<typeof InputSchema>)?.image}
-        register={register}
         title="Hero Image"
+        form={form}
         description="Size Limit:1.5mb"
       />
-      <Card.CallToAction register={register} />
+      <Card.CallToAction register={form.register} />
     </>
   );
 };

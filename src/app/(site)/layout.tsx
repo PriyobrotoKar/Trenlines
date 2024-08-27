@@ -6,7 +6,7 @@ const SiteLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="max-w-screen-xl  mx-auto overscroll-x-none ">
       <Header />
-      <div>{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 };

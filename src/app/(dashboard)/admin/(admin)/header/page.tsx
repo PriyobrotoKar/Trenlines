@@ -5,6 +5,7 @@ import Card from "@/components/admin/Card";
 import useAutoSaveForm from "@/hooks/useAutoSaveForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
+import { register } from "module";
 import React, { useEffect } from "react";
 import { z } from "zod";
 
@@ -28,7 +29,7 @@ const Page = ({ params }: { params: { section: string } }) => {
     queryFn: async () => await getSection("header"),
   });
 
-  const { register, setValue } = useAutoSaveForm<z.infer<typeof InputSchema>>(
+  const form = useAutoSaveForm<z.infer<typeof InputSchema>>(
     InputSchema,
     "header",
     {
@@ -47,12 +48,11 @@ const Page = ({ params }: { params: { section: string } }) => {
       <Card.ImageUpload
         aspectRatio={1}
         value={(data?.content as z.infer<typeof InputSchema>)?.image}
-        register={register}
-        setValue={setValue}
+        form={form}
         title="Brand Logo"
         description="Replace with a 1:1 logo mark"
       />
-      <Card.CallToAction register={register} />
+      <Card.CallToAction register={form.register} />
     </>
   );
 };

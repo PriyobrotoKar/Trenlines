@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { JournalModalSchema } from "@/lib/types";
 import { headers } from "next/headers";
 import { z } from "zod";
+import { sendEmail } from "./sendEmail";
 
 export const addSubscriber = async ({
   email,
@@ -10,29 +11,44 @@ export const addSubscriber = async ({
   lastname,
 }: z.infer<typeof JournalModalSchema>) => {
   try {
-    await prisma.subscriber.deleteMany();
     const ip =
       headers().get("x-forwarded-for") ??
       headers().get("x-real-ip") ??
       "0.0.0.0";
+
     const data = JournalModalSchema.parse({ email, firstname, lastname });
 
-    let tx = [];
+    const alreadySubscribed = await prisma.subscriber.findFirst({
+      where: {
+        email,
+        ip,
+      },
+    });
 
-    for (let i = 0; i < 30; i++) {
-      tx.push(
-        prisma.subscriber.create({
-          data: {
-            ...data,
-            email: `${email}${i}`,
-            ip,
-          },
-        })
-      );
+    if (alreadySubscribed) {
+      return {
+        error: {
+          title: "Already Subscribed",
+          description: "You have already subscribed to our journal",
+        },
+      };
     }
 
-    await prisma.$transaction(tx);
+    await prisma.subscriber.create({
+      data: {
+        ...data,
+        ip,
+      },
+    });
+
+    await sendEmail(email);
   } catch (error) {
     console.log(error);
+    return {
+      error: {
+        title: "Something went wrong",
+        description: "Please try again later",
+      },
+    };
   }
 };

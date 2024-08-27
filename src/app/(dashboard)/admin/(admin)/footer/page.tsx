@@ -23,8 +23,14 @@ const InputSchema = z.object({
       link: z.string().url().min(1, { message: "Link is required" }),
     })
   ),
-  disclaimer: z.string().min(1, { message: "Disclaimer is required" }),
-  copyright: z.string().min(1, { message: "Copyright is required" }),
+  disclaimer: z
+    .string()
+    .min(1, { message: "Disclaimer is required" })
+    .max(150, { message: "Disclaimer must be less than 150 characters" }),
+  copyright: z
+    .string()
+    .min(1, { message: "Copyright is required" })
+    .max(150, { message: "Copyright must be less than 150 characters" }),
 });
 
 const Page = () => {
@@ -54,7 +60,6 @@ const Page = () => {
         Branding
       </h2>
       <Card.ImageUpload
-        aspectRatio={1}
         form={form}
         value={(data?.content as z.infer<typeof InputSchema>)?.image}
         title="Brand Logo"
@@ -78,12 +83,16 @@ const Page = () => {
       <Card.LargeText
         title="Disclaimer"
         description="Edit disclaimer info"
-        register={form.register}
+        form={form}
+        max={150}
+        name="disclaimer"
       />
       <Card.LargeText
         title="Copyright"
         description="Edit copyright info"
-        register={form.register}
+        form={form}
+        max={150}
+        name="copyright"
       />
     </>
   );

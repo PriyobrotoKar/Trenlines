@@ -38,7 +38,7 @@ export const About = async () => {
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="absolute w-svw h-[60rem] -top-64 left-1/2 -translate-x-1/2"
+        className="absolute w-svw h-[60rem] -top-3/4 md:-top-64 left-1/2 -translate-x-1/2"
       >
         <Image src={"/gradient.svg"} alt="gradient" fill className="-z-10 " />
       </Animate>
@@ -67,7 +67,7 @@ export const About = async () => {
               stagger
               options={{ margin: "0%", staggerDelay: 0 }}
             >
-              <div className="absolute w-80 h-fit -translate-y-[50%]  inset-0 left-10">
+              <div className="absolute w-32 md:w-80 h-fit -translate-y-[50%]  inset-0 md:left-10">
                 <div className="w-full h-full bg-gradient-to-t from-card absolute to-50% to-transparent z-10"></div>
                 <Image
                   className=""

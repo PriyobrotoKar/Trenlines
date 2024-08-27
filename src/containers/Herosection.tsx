@@ -15,8 +15,6 @@ export const Herosection = async () => {
     return null;
   }
 
-  console.log(data.content);
-
   const content = data.content as Record<string, string>;
 
   return (
@@ -59,15 +57,15 @@ export const Herosection = async () => {
               visible={{ opacity: 1, transform: "translateY(0)" }}
               stagger
               options={{ margin: "0%", staggerDelay: 0.5 }}
-              className="text-center space-y-8"
+              className="text-center "
             >
-              <YoutubeEmbed className="flex md:hidden" />
+              <YoutubeEmbed className="flex md:hidden mb-8" />
               <a href={content.ctaLink}>
-                <Button className="gap-2">
+                <Button className="gap-2 mb-8">
                   {content.ctaLabel} <Icons.LinkArrow />
                 </Button>
               </a>
-              <div className="flex gap-4 justify-center items-center">
+              <div className="flex gap-4 justify-center items-center ">
                 <div className="inline-flex">
                   {[...Array(4).fill("/people1.svg")].map((img, i) => {
                     return (
@@ -90,8 +88,6 @@ export const Herosection = async () => {
                 </div>
               </div>
             </Animate>
-            <YoutubeEmbed className="hidden md:flex" />
-            <JournalModal />
           </Animate>
         </Animate>
       </main>

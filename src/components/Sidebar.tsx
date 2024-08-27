@@ -1,8 +1,10 @@
 "use client";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useSidebar } from "@/providers/SidebarProvider";
+import { cn } from "@/lib/utils";
 
 const sections = [
   "Header",
@@ -21,11 +23,20 @@ const getPath = (name: string) => {
 };
 
 const Sidebar = () => {
+  const { isOpen, setIsOpen } = useSidebar();
   const path = usePathname();
-  console.log(path);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [path, setIsOpen]);
 
   return (
-    <div className="hidden lg:flex w-52 rounded-xl h-[95svh] fixed top-1/2 -translate-y-1/2  place-items-center   overflow-hidden bg-popover text-md px-9">
+    <div
+      className={cn(
+        " flex w-52 rounded-xl h-[95svh] fixed z-20 top-1/2 right-4 lg:right-auto lg:left-auto -translate-y-1/2  place-items-center transition-transform    overflow-hidden bg-popover text-md px-9 translate-x-full lg:translate-x-0 ",
+        isOpen && "translate-x-0"
+      )}
+    >
       <ul className="space-y-10">
         {sections.map((section, i) => {
           return (

@@ -86,7 +86,7 @@ const Faq = async () => {
                     value={`item-${i}`}
                     className={cn(
                       "py-4 text-left ",
-                      i === faqs.length - 1 && "border-b-0"
+                      i === content.questions.length - 1 && "border-b-0"
                     )}
                   >
                     <AccordionTrigger>{question}</AccordionTrigger>
