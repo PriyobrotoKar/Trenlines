@@ -37,7 +37,7 @@ const Sidebar = () => {
         isOpen && "translate-x-0"
       )}
     >
-      <ul className="space-y-10">
+      <ul className="space-y-8 md:space-y-10">
         {sections.map((section, i) => {
           return (
             <li
