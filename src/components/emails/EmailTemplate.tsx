@@ -1,6 +1,13 @@
 import * as React from "react";
-import { Html, Button, Tailwind } from "@react-email/components";
+import {
+  Html,
+  Button,
+  Tailwind,
+  Img,
+  Container,
+} from "@react-email/components";
 import { url } from "inspector";
+import { Logo } from "../Logo";
 
 export function Email() {
   return (
@@ -22,33 +29,35 @@ export function Email() {
 
           <div className="w-full max-w-2xl mx-auto p-8 bg-white shadow-lg">
             <header className="text-center mb-8">
-              <div className="bg-blue-950 p-4 rounded-xl flex justify-center gap-4 items-center">
-                <img
-                  src={`https://raw.githubusercontent.com/PriyobrotoKar/Trenlines/0cf4193bb0e0d07a33b7d9e5e7c12b1a9027a308/public/logo.svg`}
-                  alt="Journal Logo"
-                  className="h-12 block"
-                />
-                <h2 className="text-2xl uppercase text-neutral-200 font-light">
-                  Trenlines
-                </h2>
+              <div className="bg-blue-950 rounded-xl p-4">
+                <Container style={{ margin: "0 auto", width: "fit-content" }}>
+                  <div className="max-h-16 overflow-hidden">
+                    <Img
+                      src="/public/logo.png"
+                      alt="Trenlines Logo"
+                      className="w-32"
+                    />
+                  </div>
+                </Container>
               </div>
-              <h1 className="text-3xl font-bold mt-6">Trading Journal</h1>
-              <p className="text-gray-600 mt-2">
-                Keeping you informed, inspired, and engaged
+              <h1 className="text-3xl font-bold mt-6">
+                Trenlines Trading Journal
+              </h1>
+              <p className="text-gray-600 text-sm ">
+                The Most COMPREHENSIVE Trading Journal in the Game!
               </p>
             </header>
 
-            <section className="mb-8 flex flex-col gap-8 items-center">
-              <p className="text-gray-800 leading-7">
-                Welcome to the latest edition of our monthly journal. We have
-                curated a selection of articles, insights, and stories that we
-                hope will inspire and engage you. Our team has worked hard to
-                bring you the best content, and we hope you enjoy reading it as
-                much as we enjoyed putting it together.
+            <section style={{}}>
+              <p className="text-gray-800 leading-7 text-center">
+                This journal will give you detailed statistics and massively
+                speed up your trading journey!
               </p>
-              <button className="bg-green-400 border border-green-700 w-fit  cursor-pointer rounded-full text-lg px-6 py-2">
-                Get Journal
-              </button>
+              <Container style={{ margin: "0 auto", width: "fit-content" }}>
+                <button className="bg-green-400 border mx-auto border-green-700 w-fit  cursor-pointer rounded-full text-lg px-6 py-2">
+                  Get Journal
+                </button>
+              </Container>
             </section>
 
             <footer className="text-center mt-12 border-t pt-8 border-gray-300">
