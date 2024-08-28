@@ -399,7 +399,7 @@ Card.Affiliate = function Affiliate({
       `affliates.${ind}.properties.color`,
       getValues(`affliates.${ind}.properties.color`)
     );
-  }, [color, setValue, ind]);
+  }, [getValues, setValue, ind]);
 
   return (
     <Card

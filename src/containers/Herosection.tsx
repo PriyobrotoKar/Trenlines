@@ -22,7 +22,7 @@ export const Herosection = async () => {
       <div className="absolute w-full h-full inset-0 -z-10 ">
         <div className="bg-gradient-to-t from-background to-background/30 w-full h-full "></div>
         <Image
-          src={"/heroBackground.jpeg"}
+          src={content.image}
           className="object-cover relative -z-20 opacity-10"
           alt="Hero Background"
           fill

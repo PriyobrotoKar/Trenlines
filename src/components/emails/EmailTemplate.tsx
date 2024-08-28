@@ -29,18 +29,16 @@ export function Email() {
 
           <div className="w-full max-w-2xl mx-auto p-8 bg-white shadow-lg">
             <header className="text-center mb-8">
-              <div className="bg-blue-950 rounded-xl p-4">
+              <div className="bg-blue-950 rounded-xl p-6">
                 <Container style={{ margin: "0 auto", width: "fit-content" }}>
-                  <div className="max-h-16 overflow-hidden">
-                    <Img
-                      src="/public/logo.png"
-                      alt="Trenlines Logo"
-                      className="w-32"
-                    />
-                  </div>
+                  <Img
+                    src="https://github.com/PriyobrotoKar/Trenlines/blob/main/public/logo.png?raw=true"
+                    alt="Trenlines Logo"
+                    className="w-14"
+                  />
                 </Container>
               </div>
-              <h1 className="text-3xl font-bold mt-6">
+              <h1 className="text-3xl font-bold mt-6 text-black">
                 Trenlines Trading Journal
               </h1>
               <p className="text-gray-600 text-sm ">
@@ -54,24 +52,17 @@ export function Email() {
                 speed up your trading journey!
               </p>
               <Container style={{ margin: "0 auto", width: "fit-content" }}>
-                <button className="bg-green-400 border mx-auto border-green-700 w-fit  cursor-pointer rounded-full text-lg px-6 py-2">
-                  Get Journal
-                </button>
+                <a href="https://docs.google.com/spreadsheets/d/12rPFoSTjDrL7ag0nila3OXg83ZHbdv3WYtr7sCv91fc/edit?gid=1729010657#gid=1729010657">
+                  <button className="bg-green-400 border mx-auto border-green-700 w-fit  cursor-pointer rounded-full text-lg px-6 py-2">
+                    Get Journal
+                  </button>
+                </a>
               </Container>
             </section>
 
             <footer className="text-center mt-12 border-t pt-8 border-gray-300">
               <p className="text-sm text-gray-600">
                 © 2024 Trenlines. All rights reserved.
-              </p>
-              <p className="text-sm text-gray-600">
-                <a
-                  href="https://yourjournal.com/unsubscribe"
-                  className="text-blue-500 underline"
-                >
-                  Unsubscribe
-                </a>{" "}
-                from these emails
               </p>
             </footer>
           </div>

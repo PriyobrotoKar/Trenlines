@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async (address: string) => {
   const { data, error } = await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: process.env.EMAIL_FROM!,
     to: address,
     subject: "Trading Journal",
     react: EmailTemplate(),

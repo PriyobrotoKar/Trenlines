@@ -4,27 +4,6 @@ import { GlareCard } from "@/components/ui/glare-card";
 import Image from "next/image";
 import React, { Fragment } from "react";
 
-const cards = [
-  {
-    code: "TRUSTED BROKER",
-    bg: "/broker.png",
-    logo: "/brokerlogo.svg",
-    accentColor: "#6D98FD",
-  },
-  {
-    code: "USE CODE SG",
-    bg: "/broker.png",
-    logo: "/brokerlogo.svg",
-    accentColor: "#6D98FD",
-  },
-  {
-    code: "USE CODE SG",
-    bg: "/broker.png",
-    logo: "/brokerlogo.svg",
-    accentColor: "#6D98FD",
-  },
-];
-
 const Resources = async () => {
   const data = await getSection("resources");
   if (!data) {
@@ -56,31 +35,33 @@ const Resources = async () => {
         <Image src={"/gradient2.svg"} alt="Gradient2" className="" fill />
       </Animate>
 
-      <Animate
-        hidden={{ opacity: 0, transform: "translateY(20px)" }}
-        visible={{ opacity: 1, transform: "translateY(0)" }}
-        stagger
-        className="tracking-wider "
-      >
-        <div className="bg-[url('/live.png')] bg-no-repeat relative leading-snug bg-cover h-[14rem] md:h-[20rem] lg:h-[25rem] before:absolute before:bg-gradient-to-tl overflow-hidden before:from-accent before:to-40% before:to-transparent before:inset-0 before:w-full before:h-full  rounded-xl flex flex-col justify-end p-4 md:p-10 items-end [&>*]:z-10">
-          <p className="font-light text-sm md:text-base text-primary">FREE</p>
-          <h2 className="text-xl md:text-2xl">Daily Streams</h2>
-          <div className="flex gap-4 md:gap-6 tracking-normal items-center font-light text-[0.63rem] md:text-sm">
-            <div>
-              New York Session{" "}
-              <span className="bg-foreground text-background rounded-full px-1.5 md:px-2.5 py-0.5">
-                1pm
-              </span>
-            </div>
-            <div>
-              London Session Stream{" "}
-              <span className="bg-foreground text-background rounded-full px-1.5 md:px-2.5 py-0.5">
-                8am
-              </span>
+      <a href="https://www.youtube.com/@Trenlines">
+        <Animate
+          hidden={{ opacity: 0, transform: "translateY(20px)" }}
+          visible={{ opacity: 1, transform: "translateY(0)" }}
+          stagger
+          className="tracking-wider "
+        >
+          <div className="bg-[url('/live.png')] bg-no-repeat relative leading-snug bg-cover h-[14rem] md:h-[20rem] lg:h-[25rem] before:absolute before:bg-gradient-to-tl overflow-hidden before:from-accent before:to-40% before:to-transparent before:inset-0 before:w-full before:h-full  rounded-3xl flex flex-col justify-end p-4 md:p-10 items-end [&>*]:z-10">
+            <p className="font-light text-sm md:text-base text-primary">FREE</p>
+            <h2 className="text-xl md:text-2xl">Daily Streams</h2>
+            <div className="flex gap-4 md:gap-6 tracking-normal items-center font-light text-[0.63rem] md:text-sm">
+              <div>
+                New York Session{" "}
+                <span className="bg-foreground text-background rounded-full px-1.5 md:px-2.5 py-0.5">
+                  1pm
+                </span>
+              </div>
+              <div>
+                London Session Stream{" "}
+                <span className="bg-foreground text-background rounded-full px-1.5 md:px-2.5 py-0.5">
+                  8am
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </Animate>
+        </Animate>
+      </a>
 
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
@@ -100,44 +81,43 @@ const Resources = async () => {
             i: number
           ) => {
             return (
-              <GlareCard
-                className="md:flex-[1_0_auto]     relative   h-full rounded-xl overflow-hidden flex flex-col justify-between p-4 md:p-8 items-center gap-2"
-                key={i}
-              >
-                <div
-                  style={{
-                    background: `linear-gradient(0deg,${card.properties.color} ,transparent 60%)`,
-                  }}
-                  className="bg-gradient-to-t z-10 from-accent to-transparent w-full h-full absolute inset-0 "
-                ></div>
-                <Animate
-                  hidden={{ opacity: 0, scale: 1.06 }}
-                  visible={{ opacity: 1, scale: 1 }}
-                  stagger
-                  options={{ margin: "0%" }}
-                  className="absolute w-full h-full inset-0 "
-                  childClassNames="h-full"
-                >
-                  <Image
-                    src={card.image}
-                    alt="CardBG"
-                    width={300}
-                    height={500}
-                    className="w-full h-full object-cover -z-10 will-change-transform"
-                  />
-                </Animate>
-                <div className="z-10 h-full flex justify-between items-center flex-col">
-                  <p className="font-light text-center text-[0.63rem] md:text-sm text-primary/80 tracking-wider">
-                    {card.properties.code}
-                  </p>
-                  <Image
-                    src={card.logo}
-                    alt="Resource"
-                    width={200}
-                    height={100}
-                  />
-                </div>
-              </GlareCard>
+              <a key={i} href={card.properties.link}>
+                <GlareCard className="md:flex-[1_0_auto]     relative   h-full rounded-xl overflow-hidden flex flex-col justify-between p-4 md:p-8 items-center gap-2">
+                  <div
+                    style={{
+                      background: `linear-gradient(0deg,${card.properties.color} ,transparent 60%)`,
+                    }}
+                    className="bg-gradient-to-t z-10 from-accent to-transparent w-full h-full absolute inset-0 "
+                  ></div>
+                  <Animate
+                    hidden={{ opacity: 0, scale: 1.06 }}
+                    visible={{ opacity: 1, scale: 1 }}
+                    stagger
+                    options={{ margin: "0%" }}
+                    className="absolute w-full h-full inset-0 "
+                    childClassNames="h-full"
+                  >
+                    <Image
+                      src={card.image}
+                      alt="CardBG"
+                      width={300}
+                      height={500}
+                      className="w-full h-full object-cover -z-10 will-change-transform"
+                    />
+                  </Animate>
+                  <div className="z-10 h-full flex justify-between items-center flex-col">
+                    <p className="font-light text-center text-[0.63rem] md:text-sm text-primary/80 tracking-wider">
+                      {card.properties.code}
+                    </p>
+                    <Image
+                      src={card.logo}
+                      alt="Resource"
+                      width={200}
+                      height={100}
+                    />
+                  </div>
+                </GlareCard>
+              </a>
             );
           }
         )}

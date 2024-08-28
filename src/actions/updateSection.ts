@@ -1,7 +1,7 @@
 "use server";
-import { InputSchema } from "@/app/(dashboard)/admin/(admin)/header/page";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const updateSection = async <T extends Record<string, string>>(
@@ -27,6 +27,8 @@ export const updateSection = async <T extends Record<string, string>>(
         content: data,
       },
     });
+
+    revalidatePath("/");
   } catch (error) {
     console.log(error);
   }

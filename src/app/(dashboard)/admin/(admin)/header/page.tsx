@@ -17,7 +17,7 @@ type Inputs = {
   ctaLink: string;
 };
 
-export const InputSchema = z.object({
+const InputSchema = z.object({
   image: z.string().url().min(1, { message: "Image is required" }),
   ctaLabel: z.string().min(1, { message: "CTA Label is required" }),
   ctaLink: z.string().url().min(1, { message: "CTA Link is required" }),

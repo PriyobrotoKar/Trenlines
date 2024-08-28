@@ -24,7 +24,10 @@ const InputSchema = z.object({
     initial: z.string().min(1, { message: "Initial is required" }),
     discount: z.string().min(1, { message: "Discount is required" }),
   }),
-  description: z.string().min(1, { message: "Description is required" }),
+  description: z
+    .string()
+    .min(1, { message: "Description is required" })
+    .max(150, { message: "Description is too long" }),
 });
 
 const Page = () => {
@@ -82,7 +85,9 @@ const Page = () => {
       <Card.LargeText
         title="Description"
         description="Enter product info"
-        register={form.register}
+        form={form}
+        max={150}
+        name="description"
       />
     </>
   );
