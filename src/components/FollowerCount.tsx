@@ -33,7 +33,7 @@ const FollowerCount = ({
     };
   }, [final, initial, ref, inView]);
   return (
-    <div className="text-xl  md:text-2xl font-bold">
+    <div className="text-lg  md:text-2xl font-bold">
       <span ref={ref}>44.8</span>
       <span className="text-base md:text-xl">K</span>
     </div>

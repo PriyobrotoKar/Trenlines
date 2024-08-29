@@ -43,13 +43,13 @@ const Faq = async () => {
   const content = data.content as Record<string, any>;
 
   return (
-    <section className="flex justify-center   items-center overflow-visible relative space-y-10 md:space-y-32 flex-col">
+    <section className="flex justify-center   items-center overflow-visible relative gap-10 md:gap-32 flex-col">
       <Animate
         hidden={{ opacity: 0 }}
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="absolute  w-svw h-[60rem] -z-10 -top-56  md:-top-20"
+        className="absolute  w-svw h-[60rem] -z-10 -top-[20rem]  md:-top-20"
       >
         <Image src={"/gradient2.svg"} alt="Gradient2" fill />
       </Animate>

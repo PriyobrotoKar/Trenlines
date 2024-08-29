@@ -397,9 +397,9 @@ Card.Affiliate = function Affiliate({
   useEffect(() => {
     setValue(
       `affliates.${ind}.properties.color`,
-      getValues(`affliates.${ind}.properties.color`)
+      getValues(`affliates.${ind}.properties.color`) || color
     );
-  }, [getValues, setValue, ind]);
+  }, [getValues, setValue, ind, color]);
 
   return (
     <Card

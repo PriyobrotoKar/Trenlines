@@ -1,5 +1,6 @@
 import { getSection } from "@/actions/getSection";
 import Animate from "@/components/Animate";
+import { CardBody, CardContainer } from "@/components/ui/3d-card";
 import { GlareCard } from "@/components/ui/glare-card";
 import Image from "next/image";
 import React, { Fragment } from "react";
@@ -40,7 +41,7 @@ const Resources = async () => {
           hidden={{ opacity: 0, transform: "translateY(20px)" }}
           visible={{ opacity: 1, transform: "translateY(0)" }}
           stagger
-          className="tracking-wider "
+          className="tracking-wider lg:w-[85%] mx-auto"
         >
           <div className="bg-[url('/live.png')] bg-no-repeat relative leading-snug bg-cover h-[14rem] md:h-[20rem] lg:h-[25rem] before:absolute before:bg-gradient-to-tl overflow-hidden before:from-accent before:to-40% before:to-transparent before:inset-0 before:w-full before:h-full  rounded-3xl flex flex-col justify-end p-4 md:p-10 items-end [&>*]:z-10">
             <p className="font-light text-sm md:text-base text-primary">FREE</p>
@@ -69,7 +70,7 @@ const Resources = async () => {
         stagger
         options={{ margin: "0%" }}
         className="will-change-auto flex justify-center flex-wrap gap-4 md:gap-8 lg:gap-10 mt-14 "
-        childClassNames="w-fit flex-1 min-w-[9rem] md:min-w-[12rem]"
+        childClassNames=""
       >
         {content.affliates.map(
           (
@@ -82,41 +83,43 @@ const Resources = async () => {
           ) => {
             return (
               <a key={i} href={card.properties.link}>
-                <GlareCard className="md:flex-[1_0_auto]     relative   h-full rounded-xl overflow-hidden flex flex-col justify-between p-4 md:p-8 items-center gap-2">
-                  <div
-                    style={{
-                      background: `linear-gradient(0deg,${card.properties.color} ,transparent 60%)`,
-                    }}
-                    className="bg-gradient-to-t z-10 from-accent to-transparent w-full h-full absolute inset-0 "
-                  ></div>
-                  <Animate
-                    hidden={{ opacity: 0, scale: 1.06 }}
-                    visible={{ opacity: 1, scale: 1 }}
-                    stagger
-                    options={{ margin: "0%" }}
-                    className="absolute w-full h-full inset-0 "
-                    childClassNames="h-full"
-                  >
-                    <Image
-                      src={card.image}
-                      alt="CardBG"
-                      width={300}
-                      height={500}
-                      className="w-full h-full object-cover -z-10 will-change-transform"
-                    />
-                  </Animate>
-                  <div className="z-10 h-full flex justify-between items-center flex-col">
-                    <p className="font-light text-center text-[0.63rem] md:text-sm text-primary/80 tracking-wider">
-                      {card.properties.code}
-                    </p>
-                    <Image
-                      src={card.logo}
-                      alt="Resource"
-                      width={200}
-                      height={100}
-                    />
-                  </div>
-                </GlareCard>
+                <CardContainer className="md:flex-[1_0_auto]     relative   h-full rounded-xl overflow-hidden flex flex-col justify-between  items-center gap-2">
+                  <CardBody className="p-4 md:p-8 aspect-[3/4]   w-[9rem] md:w-[12rem] lg:w-[17rem]">
+                    <div
+                      style={{
+                        background: `linear-gradient(0deg,${card.properties.color} ,transparent 60%)`,
+                      }}
+                      className="bg-gradient-to-t z-10 from-accent to-transparent w-full h-full absolute inset-0 "
+                    ></div>
+                    <Animate
+                      hidden={{ opacity: 0, scale: 1.06 }}
+                      visible={{ opacity: 1, scale: 1 }}
+                      stagger
+                      options={{ margin: "0%" }}
+                      className="absolute w-full h-full inset-0 "
+                      childClassNames="h-full"
+                    >
+                      <Image
+                        src={card.image}
+                        alt="CardBG"
+                        width={300}
+                        height={500}
+                        className="w-full h-full object-cover -z-10 will-change-transform"
+                      />
+                    </Animate>
+                    <div className="z-20 relative h-full flex justify-between items-center flex-col">
+                      <p className="font-light text-center text-[0.63rem] md:text-sm text-primary/80 tracking-wider">
+                        {card.properties.code}
+                      </p>
+                      <Image
+                        src={card.logo}
+                        alt="Resource"
+                        width={200}
+                        height={100}
+                      />
+                    </div>
+                  </CardBody>
+                </CardContainer>
               </a>
             );
           }

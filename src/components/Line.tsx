@@ -23,7 +23,7 @@ const Line = () => {
 
   return (
     <div ref={ref} className="w-fit mx-auto my-28 md:my-48">
-      <div className="w-0.5 h-48 md:h-64 bg-neutral-500 rounded-full">
+      <div className="w-0.5 h-48 md:h-64 bg-[#AAA7FF15] rounded-full">
         <motion.div
           className="w-full bg-white rounded-full"
           style={{ height: svgHeight }}

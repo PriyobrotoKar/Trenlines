@@ -36,7 +36,7 @@ export const Herosection = async () => {
           className="flex justify-center items-center flex-col gap-8 lg:gap-12 min-h-[inherit]"
           childClassNames="w-full"
         >
-          <h1 className="text-xl md:text-2xl text-center  font-bold leading-tight">
+          <h1 className="text-xl md:text-2xl text-center  font-semibold leading-tight">
             The <span className="text-primary">Fastest</span> Way To{" "}
             <span className="text-primary">Profitability</span> for Beginner
             Traders

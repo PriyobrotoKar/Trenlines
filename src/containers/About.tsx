@@ -34,14 +34,14 @@ export const About = async () => {
   return (
     <section
       id="about"
-      className="flex justify-between relative  items-center  flex-col h-[22rem] md:h-[40rem]  lg:h-[48rem] my-28 md:my-80"
+      className="flex justify-between relative  items-center  flex-col h-[20rem] md:h-[40rem]  lg:h-[48rem] my-28 md:my-80"
     >
       <Animate
         hidden={{ opacity: 0 }}
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="absolute w-svw h-[60rem] -top-[95%] md:-top-64 left-1/2 -translate-x-1/2"
+        className="absolute w-svw h-[60rem] -top-full md:-top-64 left-1/2 -translate-x-1/2"
       >
         <Image src={"/gradient.svg"} alt="gradient" fill className="-z-10 " />
       </Animate>
@@ -61,8 +61,9 @@ export const About = async () => {
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
         options={{ margin: "0%", offsetDelay: 0.5 }}
+        className="lg:w-[85%]"
       >
-        <Card className="flex gap-2  md:gap-6 justify-between items-center max-w-screen-lg">
+        <Card className="flex gap-2 p-6 md:p-8  md:gap-6 justify-between items-end w-full">
           <div className="relative">
             <Animate
               hidden={{ opacity: 0, transform: "translateY(0px)" }}
@@ -84,14 +85,14 @@ export const About = async () => {
             <h2 className="text-xl md:text-2xl lg:text-3xl z-10 relative font-bold max-w-sm leading-[1]">
               Sam Gilkes.
             </h2>
-            <p className="text-primary text-sm md:text-base relative z-10">
+            <p className="text-primary text-[0.65rem] md:text-base relative z-10 leading-tight tracking-wide">
               Founder, Trenlines
             </p>
           </div>
           <div className="text-right space-y-4">
             <div>
               <FollowerCount initial={0} final={followerCount} />
-              <div className="text-[0.73rem] md:text-sm">
+              <div className="text-[0.53rem] md:text-sm">
                 Followers on Instagram
               </div>
             </div>
