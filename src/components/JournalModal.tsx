@@ -31,7 +31,7 @@ const JournalModal = () => {
     <div>
       <div ref={ref}></div>
       <Dialog open={isInView && !closed}>
-        <DialogContent className="p-0 border-0 max-w-[55rem] w-[90%] sm:rounded-2xl">
+        <DialogContent className="p-0 border-0 max-w-[55rem] w-[90%] rounded-2xl">
           <Card className="flex  md:flex-row flex-col gap-16 md:gap-4 items-center md:items-start justify-between py-20 md:pt-24 md:pb-16 xl:pt-32 xl:pb-24 relative overflow-hidden [&>*]:flex-1">
             <DialogClose
               className="absolute top-10 right-10 z-20"

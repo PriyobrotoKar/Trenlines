@@ -44,7 +44,7 @@ const Animate = ({
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
-    margin: options?.margin || "-30%",
+    margin: options?.margin,
   });
   const initialStyles = Object.fromEntries(
     Object.entries(hidden).map(([key, value]) => {
@@ -62,10 +62,7 @@ const Animate = ({
               transition: "all 1s ",
               ...(stagger && {
                 transitionDelay: motionValue(
-                  `${
-                    i * (options?.staggerDelay || 0.2) +
-                    (options?.offsetDelay || 0.2)
-                  }s`
+                  `${i * (options?.staggerDelay || 0.2) + 0.2}s`
                 ),
               }),
             }}

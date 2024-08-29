@@ -40,8 +40,8 @@ const Vip = async () => {
   const content = data.content as Record<string, any>;
 
   return (
-    <section>
-      <div className="text-center mb-20 md:mb-64">
+    <section id="coaching">
+      <div className="text-center mb-10 md:mb-64">
         <Animate
           hidden={{ opacity: 0, transform: "translateY(10px)" }}
           visible={{ opacity: 1, transform: "translateY(0)" }}
@@ -68,7 +68,7 @@ const Vip = async () => {
           visible={{ opacity: 1, scale: 1 }}
           stagger
           options={{ offsetDelay: 0.5 }}
-          className="grid order-3 gar-20 w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10 md:-translate-x-1/2 gap-y-14 md:gap-y-20 xl:gap-y-32"
+          className="grid order-3  w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10 md:-translate-x-1/2 gap-y-16 md:gap-y-20 xl:gap-y-32"
         >
           {content.features.map(
             (

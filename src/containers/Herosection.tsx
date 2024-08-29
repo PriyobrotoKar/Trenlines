@@ -18,7 +18,7 @@ export const Herosection = async () => {
   const content = data.content as Record<string, string>;
 
   return (
-    <section className="min-h-[70vh] ">
+    <section id="home" className="min-h-[70vh] ">
       <div className="absolute w-full h-full inset-0 -z-10 ">
         <div className="bg-gradient-to-t from-background to-background/30 w-full h-full "></div>
         <Image
@@ -67,10 +67,10 @@ export const Herosection = async () => {
               </a>
               <div className="flex gap-4 justify-center items-center ">
                 <div className="inline-flex">
-                  {[...Array(4).fill("/people1.svg")].map((img, i) => {
+                  {[...Array(4)].map((_, i) => {
                     return (
                       <Image
-                        src={img}
+                        src={`/people${i + 1}.png`}
                         className="-ml-2"
                         style={{
                           filter: `brightness(${0.5 + (0.5 / 3) * i})`,

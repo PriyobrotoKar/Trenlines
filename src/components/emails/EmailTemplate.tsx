@@ -52,11 +52,12 @@ export function Email() {
                 speed up your trading journey!
               </p>
               <Container style={{ margin: "0 auto", width: "fit-content" }}>
-                <a href="https://docs.google.com/spreadsheets/d/12rPFoSTjDrL7ag0nila3OXg83ZHbdv3WYtr7sCv91fc/edit?gid=1729010657#gid=1729010657">
-                  <button className="bg-green-400 border mx-auto border-green-700 w-fit  cursor-pointer rounded-full text-lg px-6 py-2">
-                    Get Journal
-                  </button>
-                </a>
+                <Button
+                  className="bg-green-400 text-black border mx-auto border-green-700 w-fit  cursor-pointer rounded-full text-lg px-6 py-2"
+                  href="https://docs.google.com/spreadsheets/d/12rPFoSTjDrL7ag0nila3OXg83ZHbdv3WYtr7sCv91fc/edit?gid=1729010657#gid=1729010657"
+                >
+                  Get Journal
+                </Button>
               </Container>
             </section>
 

@@ -14,16 +14,30 @@ const Header = async () => {
   console.log(content);
   return (
     <header className="flex absolute top-0 left-1/2 -translate-x-1/2  w-full max-w-screen-2xl  z-40 py-16 md:py-10 px-14 justify-between items-center">
-      <div className="flex-1">
+      <div className="flex-1 ">
         {/* <Logo.small /> */}
-        <Image src={content.image} alt="Logo" width={60} height={60} />
+        <Image
+          src={content.image}
+          className="mx-auto md:mx-0"
+          alt="Logo"
+          width={60}
+          height={60}
+        />
       </div>
       <nav className="flex-[2_2_0%] hidden md:block">
         <ul className="flex md:gap-10 xl:gap-16 items-center justify-center md:text-sm lg:text-md">
-          <li>Home</li>
-          <li>About</li>
-          <li>Socials</li>
-          <li>Coaching</li>
+          <a href="#home">
+            <li>Home</li>
+          </a>
+          <a href="#about">
+            <li>About</li>
+          </a>
+          <a href="#social">
+            <li>Socials</li>
+          </a>
+          <a href="#coaching">
+            <li>Coaching</li>
+          </a>
         </ul>
       </nav>
       <div className="flex-1 hidden md:block">

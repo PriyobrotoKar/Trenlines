@@ -43,7 +43,7 @@ const Faq = async () => {
   const content = data.content as Record<string, any>;
 
   return (
-    <section className="flex justify-center   items-center overflow-visible relative space-y-20 md:space-y-32 flex-col">
+    <section className="flex justify-center   items-center overflow-visible relative space-y-10 md:space-y-32 flex-col">
       <Animate
         hidden={{ opacity: 0 }}
         visible={{ opacity: 1 }}

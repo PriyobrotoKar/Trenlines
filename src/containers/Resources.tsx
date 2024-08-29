@@ -13,12 +13,12 @@ const Resources = async () => {
   console.log(content);
 
   return (
-    <div className="mb-80 relative">
+    <div id="social" className="mb-28 md:mb-80 relative">
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
-        className="text-center mb-32"
+        className="text-center mb-10 md:mb-32"
       >
         <h2 className="font-light text-sm md:text-base text-primary opacity-60 tracking-widest">
           FREE VALUE
@@ -30,7 +30,7 @@ const Resources = async () => {
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="w-screen  -top-[20%] md:-top-40 lg:-top-52 left-1/2 -translate-x-1/2 h-[50rem] absolute -z-10"
+        className="w-screen  -top-[40%] md:-top-40 lg:-top-52 left-1/2 -translate-x-1/2 h-[50rem] absolute -z-10"
       >
         <Image src={"/gradient2.svg"} alt="Gradient2" className="" fill />
       </Animate>

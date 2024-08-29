@@ -25,9 +25,9 @@ export default function Home() {
       >
         <YoutubeEmbed className="hidden md:flex" />
       </Animate>
-      <JournalModal />
       <Line />
       <About />
+      <JournalModal />
       <Resources />
       <Vip />
       <Line />

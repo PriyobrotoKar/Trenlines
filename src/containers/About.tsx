@@ -32,13 +32,16 @@ export const About = async () => {
 
   const followerCount = await getInstagramFollowers();
   return (
-    <section className="flex justify-between relative  items-center  flex-col h-[25rem] md:h-[40rem]  lg:h-[48rem] my-80">
+    <section
+      id="about"
+      className="flex justify-between relative  items-center  flex-col h-[22rem] md:h-[40rem]  lg:h-[48rem] my-28 md:my-80"
+    >
       <Animate
         hidden={{ opacity: 0 }}
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="absolute w-svw h-[60rem] -top-3/4 md:-top-64 left-1/2 -translate-x-1/2"
+        className="absolute w-svw h-[60rem] -top-[95%] md:-top-64 left-1/2 -translate-x-1/2"
       >
         <Image src={"/gradient.svg"} alt="gradient" fill className="-z-10 " />
       </Animate>

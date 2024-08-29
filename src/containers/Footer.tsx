@@ -10,7 +10,7 @@ export const Footer = async () => {
   }
   const content = data.content as Record<string, any>;
   return (
-    <footer className="text-center relative  space-y-8 pb-10 pt-48">
+    <footer className="text-center relative  space-y-8 pb-10 pt-20 md:pt-48">
       <Image
         src={content.image}
         className="mx-auto w-20 md:w-36"
@@ -18,7 +18,7 @@ export const Footer = async () => {
         width={150}
         height={150}
       />
-      <p className="font-light text-[0.63rem] md:text-sm text-muted tracking-widest">
+      <p className="font-light text-[0.63rem] md:text-sm text-muted-foreground tracking-widest">
         {content.disclaimer}
       </p>
       <div className="flex gap-2 items-center justify-center">
