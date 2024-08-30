@@ -8,36 +8,16 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 
-const outcomes = [
-  {
-    icon: "Mic02Icon",
-    title: "Daily Meetings",
-    description: "Get into casual calls with your mentor to seek insights",
-  },
-  {
-    icon: "UserGroupIcon",
-    title: "Access to Private Networks",
-    description:
-      "Trade and train amongst profitable mentors to maximize success",
-  },
-  {
-    icon: "WaterfallUp01Icon",
-    title: "Assisted Trading",
-    description: "Trading expertise and market experience to your fingertips",
-  },
-  {
-    icon: "TeachingIcon",
-    title: "1-to-1 Mentorship",
-    description: "Private mentorship to become a shredded, profitable trader",
-  },
-];
-
 const Vip = async () => {
   const data = await getSection("vipProgram");
-  if (!data) {
+  const heroData = await getSection("heroSection");
+  if (!data || !heroData) {
     return null;
   }
-  const content = data.content as Record<string, any>;
+  const vipContent = data.content as Record<string, any>;
+  const heroContent = heroData.content as Record<string, any>;
+
+  const content = { ...vipContent, ...heroContent };
 
   return (
     <section id="coaching">
@@ -147,7 +127,10 @@ const Vip = async () => {
               <div className="md:text-xl xl:text-2xl text-primary font-bold tracking-wide">
                 {content.pricing.discount}
               </div>
-              <Button>Enroll Now</Button>
+              <a href={content.ctaLink}>
+                <Button>Enroll Now</Button>
+              </a>
+
               <div className="mt-2 md:mt-4 flex gap-2 justify-center items-center">
                 <Icon
                   iconName="SecurityLockIcon"

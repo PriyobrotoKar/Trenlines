@@ -27,7 +27,7 @@ const InputSchema = z.object({
   description: z
     .string()
     .min(1, { message: "Description is required" })
-    .max(150, { message: "Description is too long" }),
+    .max(200, { message: "Description is too long" }),
 });
 
 const Page = () => {
@@ -86,7 +86,7 @@ const Page = () => {
         title="Description"
         description="Enter product info"
         form={form}
-        max={150}
+        max={200}
         name="description"
       />
     </>

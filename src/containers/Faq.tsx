@@ -89,7 +89,11 @@ const Faq = async () => {
                       i === content.questions.length - 1 && "border-b-0"
                     )}
                   >
-                    <AccordionTrigger>{question}</AccordionTrigger>
+                    <AccordionTrigger>
+                      <span className="hover:translate-x-4 transition-transform">
+                        {question}
+                      </span>
+                    </AccordionTrigger>
                     <AccordionContent>{answer}</AccordionContent>
                   </AccordionItem>
                 );
