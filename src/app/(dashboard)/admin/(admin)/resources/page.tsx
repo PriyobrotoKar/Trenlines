@@ -25,7 +25,7 @@ const InputSchema = z.object({
             },
             { message: "Invalid color" }
           ),
-        link: z.string().url().min(1, { message: "Link is required" }),
+        link: z.string().min(1, { message: "Link is required" }),
         code: z.string().min(1, { message: "Code is required" }),
       }),
     })

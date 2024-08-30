@@ -20,8 +20,14 @@ export const addSubscriber = async ({
 
     const alreadySubscribed = await prisma.subscriber.findFirst({
       where: {
-        email,
-        ip,
+        OR: [
+          {
+            email,
+          },
+          {
+            ip,
+          },
+        ],
       },
     });
 

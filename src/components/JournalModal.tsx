@@ -19,6 +19,7 @@ const JournalModal = () => {
   const ref = useRef(null);
   const searchParams = useSearchParams();
   const showModal = searchParams.get("showModal") === "true";
+  console.log(showModal);
   const [closed, setClosed] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState({
@@ -138,7 +139,7 @@ const JournalSuccess = () => {
   return (
     <>
       <div className="text-center relative z-20">
-        <h2 className="text-2xl font-bold">Check Your Inbox!</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Check Your Inbox!</h2>
         <p className="text-gray-600">
           Thank you for subscribing to our journal
         </p>

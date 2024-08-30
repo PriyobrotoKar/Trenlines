@@ -3,6 +3,7 @@ import Animate from "@/components/Animate";
 import { CardBody, CardContainer } from "@/components/ui/3d-card";
 import { GlareCard } from "@/components/ui/glare-card";
 import Image from "next/image";
+import Link from "next/link";
 import React, { Fragment } from "react";
 
 const Resources = async () => {
@@ -11,7 +12,7 @@ const Resources = async () => {
     return null;
   }
   const content = data.content as Record<string, any>;
-  console.log(content);
+  console.log(content.affliates[0].properties);
 
   return (
     <div id="social" className="mb-28 md:mb-80 relative">
@@ -82,7 +83,7 @@ const Resources = async () => {
             i: number
           ) => {
             return (
-              <a key={i} href={card.properties.link}>
+              <Link scroll={false} key={i} href={card.properties.link}>
                 <CardContainer className="md:flex-[1_0_auto]     relative   h-full rounded-xl overflow-hidden flex flex-col justify-between  items-center gap-2">
                   <CardBody className="p-4 md:p-8 aspect-[3/4]   w-[9rem] md:w-[12rem] lg:w-[17rem]">
                     <div
@@ -126,7 +127,7 @@ const Resources = async () => {
                     </div>
                   </CardBody>
                 </CardContainer>
-              </a>
+              </Link>
             );
           }
         )}
