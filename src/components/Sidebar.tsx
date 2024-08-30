@@ -45,7 +45,8 @@ const Sidebar = () => {
               className={
                 (path.includes(getPath(section))
                   ? ""
-                  : "text-muted-foreground") + " relative z-10"
+                  : "text-muted-foreground") +
+                " hover:text-foreground transition-colors relative z-10"
               }
             >
               <Link href={"/admin/" + getPath(section)}>{section}</Link>
@@ -56,7 +57,7 @@ const Sidebar = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="w-40 h-64 bg-accent blur-3xl absolute -z-10 top-0 -translate-y-1/2  left-1/2 "
+                    className="w-40 h-64 bg-accent pointer-events-none blur-3xl absolute -z-10 top-0 -translate-y-1/2  left-1/2 "
                   ></motion.div>
                 )}
               </AnimatePresence>

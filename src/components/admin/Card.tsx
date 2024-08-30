@@ -122,18 +122,24 @@ Card.ImageUpload = function ImageUpload({
   }, [value]);
   return (
     <Card title={title} description={description}>
-      <label htmlFor={name + "Input"}>
+      <label htmlFor={name + "Input"} className="group cursor-pointer">
         <div
-          style={{ aspectRatio: aspectRatio }}
-          className="h-16 min-w-16 border  border-dashed bg-muted rounded-xl overflow-hidden"
+          style={{ aspectRatio: image ? "unset" : aspectRatio }}
+          className="h-16 aspect-square max-w-fit border  border-dashed flex justify-center items-center  bg-muted rounded-xl overflow-hidden"
         >
-          {image?.file && (
+          {image?.file ? (
             <Image
               src={image?.file || getValues(name)}
               alt="Image"
               width={80}
               height={80}
-              className="object-cover w-full h-full"
+              className="object-contain w-full h-full"
+            />
+          ) : (
+            <Icon
+              iconName="Upload04Icon"
+              size={20}
+              className="group-hover:opacity-100 opacity-0 transition-opacity text-muted-foreground"
             />
           )}
         </div>
@@ -160,6 +166,7 @@ Card.ImageUpload = function ImageUpload({
             src={image?.file as string}
             style={{ height: 400, width: "100%" }}
             // Cropper.js options
+            zoomOnWheel
             aspectRatio={aspectRatio}
             guides={false}
             ref={cropperRef}
@@ -223,7 +230,7 @@ Card.LargeText = function LargeText({
       description={description}
       className="flex-col items-start md:items-center  md:flex-row w-full md:w-fit"
     >
-      <div className="relative">
+      <div className="relative w-full">
         <Textarea {...register(title.toLowerCase())} />
         <span
           className={cn(
@@ -395,9 +402,10 @@ Card.Affiliate = function Affiliate({
   const [color, setColor] = useState("");
 
   useEffect(() => {
+    console.log(color);
     setValue(
       `affliates.${ind}.properties.color`,
-      getValues(`affliates.${ind}.properties.color`) || color
+      color || getValues(`affliates.${ind}.properties.color`)
     );
   }, [getValues, setValue, ind, color]);
 

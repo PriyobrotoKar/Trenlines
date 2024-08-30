@@ -16,7 +16,15 @@ const InputSchema = z.object({
       image: z.string().min(1, { message: "Image is required" }),
       logo: z.string().min(1, { message: "Logo is required" }),
       properties: z.object({
-        color: z.string().min(1, { message: "Color is required" }),
+        color: z
+          .string()
+          .min(1, { message: "Color is required" })
+          .refine(
+            (v) => {
+              return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(v);
+            },
+            { message: "Invalid color" }
+          ),
         link: z.string().url().min(1, { message: "Link is required" }),
         code: z.string().min(1, { message: "Code is required" }),
       }),
@@ -63,14 +71,14 @@ const Page = () => {
     <>
       {[...Array(affliates?.length || 0)].map((_, i) => {
         return (
-          <Fragment key={i}>
-            <div className="flex gap-4 items-center group relative ">
+          <div key={i} className="group space-y-6 md:space-y-8">
+            <div className="flex gap-4 items-center  relative justify-between lg:justify-start">
               <h2 className="text-md font-light tracking-wider">
                 AFFILIATES {i + 1}
               </h2>
               <Icon
                 iconName="Cancel01Icon"
-                className=" opacity-0 group-hover:opacity-100 transition-opacity  cursor-pointer"
+                className="opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity  cursor-pointer"
                 size={20}
                 onClick={() => {
                   const affliates = form
@@ -87,6 +95,7 @@ const Page = () => {
               form={form}
               value={affliates ? affliates[i].image : ""}
               name={`affliates.${i}.image`}
+              aspectRatio={3 / 4}
             />
             <Card.ImageUpload
               title="Brand Image"
@@ -94,9 +103,10 @@ const Page = () => {
               form={form}
               value={affliates ? affliates[i].logo : ""}
               name={`affliates.${i}.logo`}
+              aspectRatio={5 / 1.5}
             />
             <Card.Affiliate ind={i} form={form} />
-          </Fragment>
+          </div>
         );
       })}
       <div className="max-w-[36rem] flex justify-center items-center">

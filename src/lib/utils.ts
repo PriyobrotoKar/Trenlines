@@ -21,7 +21,7 @@ export const extractDomain = (link: string) => {
 
 export const getTimeOfDay = () => {
   const time = new Date().getHours();
-  if (time < 5 || time > 9) {
+  if (time < 5 || time > 20) {
     return "Night";
   } else if (time < 12) {
     return "Morning";

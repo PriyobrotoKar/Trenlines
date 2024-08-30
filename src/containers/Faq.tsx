@@ -49,7 +49,7 @@ const Faq = async () => {
         visible={{ opacity: 1 }}
         stagger
         options={{ offsetDelay: 0.7 }}
-        className="absolute  w-svw h-[60rem] -z-10 -top-[20rem]  md:-top-20"
+        className="absolute  w-svw h-[60rem] -z-10 -top-[20rem]  md:-top-40"
       >
         <Image src={"/gradient2.svg"} alt="Gradient2" fill />
       </Animate>

@@ -9,7 +9,6 @@ import SidebarToggle from "./SidebarToggle";
 
 const Header = async () => {
   const session = await auth();
-  console.log(session);
   if (!session || !session.user) return null;
   const timeOfDay = getTimeOfDay();
 
@@ -21,7 +20,7 @@ const Header = async () => {
           <h1 className="md:text-xl">
             Good {timeOfDay}, <span className="text-primary">Sam</span>
           </h1>
-          <div className="hidden md:flex gap-2 items-center">
+          <div className="hidden sticky top-0  md:flex gap-2 items-center">
             <p className="text-md font-light text-muted-foreground">
               Let&apos;s manage content on{" "}
             </p>

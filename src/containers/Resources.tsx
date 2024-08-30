@@ -87,6 +87,12 @@ const Resources = async () => {
                   <CardBody className="p-4 md:p-8 aspect-[3/4]   w-[9rem] md:w-[12rem] lg:w-[17rem]">
                     <div
                       style={{
+                        background: `linear-gradient(200deg,${card.properties.color} -33%,transparent 25%)`,
+                      }}
+                      className="bg-gradient-to-bl z-10 from-accent to-transparent w-full h-full absolute inset-0 "
+                    ></div>
+                    <div
+                      style={{
                         background: `linear-gradient(0deg,${card.properties.color} ,transparent 60%)`,
                       }}
                       className="bg-gradient-to-t z-10 from-accent to-transparent w-full h-full absolute inset-0 "
