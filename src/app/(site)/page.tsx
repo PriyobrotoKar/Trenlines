@@ -11,6 +11,7 @@ import {
   Footer,
   Resources,
 } from "@/containers";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -27,7 +28,9 @@ export default function Home() {
       </Animate>
       <Line />
       <About />
-      <JournalModal />
+      <Suspense>
+        <JournalModal />
+      </Suspense>
       <Resources />
       <Vip />
       <Line />
