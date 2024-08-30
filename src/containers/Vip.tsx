@@ -68,7 +68,7 @@ const Vip = async () => {
           visible={{ opacity: 1, scale: 1 }}
           stagger
           options={{ offsetDelay: 0.5 }}
-          className="grid order-3  w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10 md:-translate-x-1/2 gap-y-20 md:gap-y-20 xl:gap-y-32"
+          className="grid order-3  w-48 mx-auto mt-20 md:mt-0 auto-rows-min  md:grid-cols-2 md:w-[45rem] lg:w-[56rem] xl:w-[68rem]  md:absolute md:left-1/2 md:-top-36 lg:-top-10  md:-translate-x-1/2 gap-y-20 md:gap-y-20 xl:gap-y-32"
         >
           {content.features.map(
             (
@@ -113,7 +113,7 @@ const Vip = async () => {
             alt="Course Outcomes"
             width={600}
             height={600}
-            className="w-64 md:w-[25rem] lg:w-[30rem] xl:w-auto mx-auto"
+            className="w-64 md:w-[25rem] lg:w-[42rem]  mx-auto"
           />
         </Animate>
         <Animate

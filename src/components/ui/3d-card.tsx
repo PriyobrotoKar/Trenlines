@@ -80,8 +80,19 @@ export const CardBody = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const [height, setHeight] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      setHeight((ref.current.clientWidth * 4) / 3);
+    }
+  }, [ref]);
+
   return (
     <div
+      ref={ref}
+      style={{ height: `${height}px` }}
       className={cn(
         "[transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
         className

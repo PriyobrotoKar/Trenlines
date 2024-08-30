@@ -26,17 +26,17 @@ const Header = async () => {
       </div>
       <nav className="flex-[2_2_0%] hidden md:block">
         <ul className="flex md:gap-10 xl:gap-16 items-center justify-center md:text-sm lg:text-md">
-          <a href="#home">
-            <li>Home</li>
-          </a>
           <a href="#about">
-            <li>About</li>
+            <li>Mentor</li>
           </a>
           <a href="#social">
-            <li>Socials</li>
+            <li>Resources</li>
           </a>
           <a href="#coaching">
-            <li>Coaching</li>
+            <li>Outcomes</li>
+          </a>
+          <a href="#testimonial">
+            <li>Testimonials</li>
           </a>
         </ul>
       </nav>

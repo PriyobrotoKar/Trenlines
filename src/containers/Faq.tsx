@@ -60,7 +60,7 @@ const Faq = async () => {
         className="text-center"
       >
         <h2 className="font-light text-sm md:text-base text-primary opacity-60 tracking-widest">
-          FREQUENTLY ASKED QUESTIONS
+          FAQ
         </h2>
         <p className="text-lg md:text-2xl tracking-wide">
           Still Got Questions?

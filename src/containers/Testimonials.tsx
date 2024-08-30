@@ -17,7 +17,7 @@ const Testimonials = async () => {
   const content = data.content as Record<string, string>;
 
   return (
-    <section className="">
+    <section id="testimonial">
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}

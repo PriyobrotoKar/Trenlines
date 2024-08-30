@@ -90,6 +90,7 @@ Card.ImageUpload = function ImageUpload({
   form: UseFormReturn<any>;
   name?: string;
 }) {
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<{
     file: string | ArrayBuffer;
@@ -122,7 +123,15 @@ Card.ImageUpload = function ImageUpload({
   }, [value]);
   return (
     <Card title={title} description={description}>
-      <label htmlFor={name + "Input"} className="group cursor-pointer">
+      <label
+        onClick={() => {
+          if (imageInputRef && imageInputRef.current) {
+            imageInputRef.current.value = "";
+          }
+        }}
+        htmlFor={name + "Input"}
+        className="group cursor-pointer"
+      >
         <div
           style={{ aspectRatio: image ? "unset" : aspectRatio }}
           className="h-16 aspect-square max-w-fit border  border-dashed flex justify-center items-center  bg-muted rounded-xl overflow-hidden"
@@ -131,8 +140,8 @@ Card.ImageUpload = function ImageUpload({
             <Image
               src={image?.file || getValues(name)}
               alt="Image"
-              width={80}
-              height={80}
+              width={200}
+              height={100}
               className="object-contain w-full h-full"
             />
           ) : (
@@ -147,6 +156,7 @@ Card.ImageUpload = function ImageUpload({
       <input type="text" {...register(name)} className="hidden" />
       <input
         type="file"
+        ref={imageInputRef}
         id={name + "Input"}
         onChange={(e) => {
           if (!e.target.files || e.target.files.length === 0) return;
@@ -302,7 +312,7 @@ Card.Question = function Question({
     >
       <Icon
         iconName="Cancel01Icon"
-        className="absolute top-4 opacity-0 group-hover:opacity-100 transition-opacity right-4 cursor-pointer"
+        className="absolute top-4 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity right-4 cursor-pointer"
         size={20}
         onClick={() => {
           const questions = getValues("questions").filter(
@@ -326,11 +336,11 @@ Card.Question = function Question({
         <span
           className={cn(
             "text-[0.73rem] text-muted-foreground absolute bottom-0 translate-y-full right-0",
-            getValues(`questions.${ind}.answer`).length > max &&
+            (getValues(`questions.${ind}.answer`)?.length || 0) > max &&
               "text-destructive"
           )}
         >
-          {getValues(`questions.${ind}.answer`).length}/{max}
+          {getValues(`questions.${ind}.answer`)?.length || 0}/{max}
         </span>
       </div>
     </Card>
