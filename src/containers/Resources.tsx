@@ -15,14 +15,14 @@ const Resources = async () => {
   console.log(content.affliates[0].properties);
 
   return (
-    <div id="social" className="mb-28 md:mb-80 relative">
+    <div id="resources" className="mb-28 md:mb-80 relative">
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
         className="text-center mb-10 md:mb-32"
       >
-        <h2 className="font-light text-sm md:text-base text-primary opacity-60 tracking-widest">
+        <h2 className=" text-sm md:text-base text-muted-foreground opacity-60 tracking-widest">
           FREE VALUE
         </h2>
         <p className="md:text-2xl tracking-wide text-lg ">Resources</p>

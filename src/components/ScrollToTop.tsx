@@ -3,12 +3,13 @@ import React, { useEffect } from "react";
 import { Button } from "./ui/button";
 import { Icon } from "./Icons";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLenis } from "@/lib/lenis";
 
 const ScrollToTop = () => {
   const [show, setShow] = React.useState(false);
+  const lenis = useLenis();
   const handleClick = () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    lenis?.scrollTo(0);
   };
 
   useEffect(() => {

@@ -14,13 +14,15 @@ import { addSubscriber } from "@/actions/addSubscriber";
 import { JournalModalSchema } from "@/lib/types";
 import { register } from "module";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useJournalModal } from "@/providers/JournalModalProvider";
 
 const JournalModal = () => {
   const ref = useRef(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const showModal = searchParams.get("showModal") === "true";
-  console.log(showModal);
-  const [closed, setClosed] = useState(false);
+  const { closed, setClosed } = useJournalModal();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState({
     error: false,
@@ -40,7 +42,13 @@ const JournalModal = () => {
             <DialogClose
               className="absolute top-10 right-10 z-20"
               tabIndex={-1}
-              onClick={() => setClosed(true)}
+              onClick={() => {
+                if (showModal) {
+                  router.back();
+                  return;
+                }
+                setClosed(true);
+              }}
             >
               <Icon iconName="Cancel01Icon" size={20} />
             </DialogClose>

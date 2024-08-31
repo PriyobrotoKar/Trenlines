@@ -17,14 +17,14 @@ const Testimonials = async () => {
   const content = data.content as Record<string, string>;
 
   return (
-    <section id="testimonial">
+    <section id="testimonials">
       <Animate
         hidden={{ opacity: 0, transform: "translateY(10px)" }}
         visible={{ opacity: 1, transform: "translateY(0)" }}
         stagger
         className="text-center mb-10 md:mb-32"
       >
-        <h2 className="text-sm md:text-base font-light text-primary opacity-60 tracking-widest">
+        <h2 className="text-sm md:text-base  text-primary opacity-60 tracking-widest">
           RESULT
         </h2>
         <p className="text-lg md:text-2xl tracking-wide">

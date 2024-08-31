@@ -4,7 +4,7 @@ import { ReactLenis } from "@/lib/lenis";
 
 const SmoothScrolling = ({ children }: { children: ReactNode }) => {
   return (
-    <ReactLenis root options={{}}>
+    <ReactLenis root options={{ duration: 2 }}>
       {children}
     </ReactLenis>
   );

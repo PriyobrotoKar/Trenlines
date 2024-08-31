@@ -59,7 +59,7 @@ const Faq = async () => {
         stagger
         className="text-center"
       >
-        <h2 className="font-light text-sm md:text-base text-primary opacity-60 tracking-widest">
+        <h2 className=" text-sm md:text-base text-primary opacity-60 tracking-widest">
           FAQ
         </h2>
         <p className="text-lg md:text-2xl tracking-wide">

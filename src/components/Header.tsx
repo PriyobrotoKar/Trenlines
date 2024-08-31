@@ -4,6 +4,7 @@ import { Logo } from "./Logo";
 import { Icons } from "./Icons";
 import { getSection } from "@/actions/getSection";
 import Image from "next/image";
+import NavLink from "./NavLink";
 
 const Header = async () => {
   const data = await getSection("header");
@@ -26,18 +27,10 @@ const Header = async () => {
       </div>
       <nav className="flex-[2_2_0%] hidden md:block">
         <ul className="flex md:gap-10 xl:gap-16 items-center justify-center md:text-sm lg:text-md">
-          <a href="#about">
-            <li>Mentor</li>
-          </a>
-          <a href="#social">
-            <li>Resources</li>
-          </a>
-          <a href="#coaching">
-            <li>Outcomes</li>
-          </a>
-          <a href="#testimonial">
-            <li>Testimonials</li>
-          </a>
+          <NavLink id="#mentor">Mentor</NavLink>
+          <NavLink id="#resources">Resources</NavLink>
+          <NavLink id="#outcomes">Outcomes</NavLink>
+          <NavLink id="#testimonials">Testimonials</NavLink>
         </ul>
       </nav>
       <div className="flex-1 hidden md:block">

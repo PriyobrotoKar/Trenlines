@@ -33,7 +33,7 @@ export const About = async () => {
   const followerCount = await getInstagramFollowers();
   return (
     <section
-      id="about"
+      id="mentor"
       className="flex justify-between relative  items-center  flex-col h-[20rem] md:h-[40rem]  lg:h-[48rem] my-28 md:my-80"
     >
       <Animate
@@ -51,7 +51,7 @@ export const About = async () => {
         stagger
         className="text-center"
       >
-        <p className="font-light text-sm md:text-base text-muted-foreground opacity-60 tracking-widest">
+        <p className=" text-sm md:text-base text-muted-foreground opacity-60 tracking-widest">
           FULL TIME TRADER
         </p>
         <h1 className="text-lg md:text-2xl">Know your Mentor</h1>
