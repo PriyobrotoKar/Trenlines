@@ -35,25 +35,27 @@ export const addSubscriber = async ({
       return {
         error: {
           title: "Already Subscribed",
-          description: "You have already subscribed to our journal",
+          description: {
+            large: "You have already subscribed to our journal",
+            small: "Did you check your spam?",
+          },
         },
       };
     }
 
+    await sendEmail(email);
     await prisma.subscriber.create({
       data: {
         ...data,
         ip,
       },
     });
-
-    await sendEmail(email);
   } catch (error) {
     console.log(error);
     return {
       error: {
-        title: "Something went wrong",
-        description: "Please try again later",
+        title: "Something went wrong!",
+        description: { large: "Please try again later", small: "" },
       },
     };
   }

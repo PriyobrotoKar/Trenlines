@@ -59,10 +59,22 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  contentClassName?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, children, variant, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      children,
+      variant,
+      contentClassName,
+      size,
+      asChild = false,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
@@ -76,7 +88,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             gradientVariants({ variant })
           )}
         ></div>
-        <span className="inline-flex items-center will-change-transform gap-1 z-10">
+        <span
+          className={cn(
+            "inline-flex items-center will-change-transform gap-1 z-10",
+            contentClassName
+          )}
+        >
           {children}
         </span>
       </Comp>

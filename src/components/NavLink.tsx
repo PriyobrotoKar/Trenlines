@@ -12,7 +12,7 @@ const NavLink = ({ children, id }: { id: string; children: ReactNode }) => {
       onClick={() => {
         const prevState = closed;
         setClosed(true);
-        lenis?.scrollTo(id, { onComplete: () => setClosed(closed) });
+        lenis?.scrollTo(id, { onComplete: () => setClosed(prevState) });
       }}
     >
       {children}

@@ -5,10 +5,10 @@ import Card from "./Card";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { Icon } from "./Icons";
-import { useInView } from "framer-motion";
+import { Icon, Icons } from "./Icons";
+import { AnimatePresence, useInView, motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { set, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addSubscriber } from "@/actions/addSubscriber";
 import { JournalModalSchema } from "@/lib/types";
@@ -23,12 +23,16 @@ const JournalModal = () => {
   const router = useRouter();
   const showModal = searchParams.get("showModal") === "true";
   const { closed, setClosed } = useJournalModal();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState({
     error: false,
     message: {
       title: "",
-      description: "",
+      description: {
+        large: "",
+        small: "",
+      },
     },
   });
   const isInView = useInView(ref, { once: true });
@@ -71,7 +75,12 @@ const JournalModal = () => {
               />
             </div>
             {!success && !error.error && (
-              <JournalForm setSuccess={setSuccess} setError={setError} />
+              <JournalForm
+                setSuccess={setSuccess}
+                setError={setError}
+                isSubmitting={isSubmitting}
+                setIsSubmitting={setIsSubmitting}
+              />
             )}
             {success && <JournalSuccess />}
             {error.error && <JournalError error={error.message} />}
@@ -85,14 +94,18 @@ const JournalModal = () => {
 const JournalForm = ({
   setSuccess,
   setError,
+  isSubmitting,
+  setIsSubmitting,
 }: {
   setSuccess: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<
     SetStateAction<{
       error: boolean;
-      message: { title: string; description: string };
+      message: { title: string; description: { large: string; small: string } };
     }>
   >;
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }) => {
   const { register, handleSubmit } = useForm<
     z.infer<typeof JournalModalSchema>
@@ -100,14 +113,17 @@ const JournalForm = ({
 
   const onSubmit = async (data: z.infer<typeof JournalModalSchema>) => {
     console.log("submit", data);
+    setIsSubmitting(true);
     const res = await addSubscriber(data);
     if (res) {
       setError({
         error: true,
         message: res.error,
       });
+      setIsSubmitting(false);
       return;
     }
+    setIsSubmitting(false);
     setSuccess(true);
   };
   return (
@@ -135,8 +151,34 @@ const JournalForm = ({
           <Input type="text" {...register("lastname")} placeholder="Lastname" />
         </div>
         <Input type="email" {...register("email")} placeholder="Email" />
-        <Button size={"sm"} className="leading-none">
-          Claim Offer
+        <Button
+          size={"sm"}
+          className="relative  leading-none"
+          contentClassName="flex-col"
+          disabled={isSubmitting}
+        >
+          <AnimatePresence>
+            <motion.span
+              key={"loader-icon"}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isSubmitting ? 1 : 0 }}
+              className="block absolute"
+            >
+              <Icon
+                className="animate-spin  "
+                iconName="Loading03Icon"
+                size={24}
+              />
+            </motion.span>
+            <motion.span
+              key={"claim-offer"}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: isSubmitting ? 0 : 1 }}
+              className="block"
+            >
+              Claim Offer
+            </motion.span>
+          </AnimatePresence>
         </Button>
       </form>
     </>
@@ -148,8 +190,11 @@ const JournalSuccess = () => {
     <>
       <div className="text-center relative z-20">
         <h2 className="text-xl md:text-2xl font-bold">Check Your Inbox!</h2>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Thank you for subscribing to our journal
+        </p>
+        <p className="text-sm mt-4 text-gray-600">
+          *don&apos;t forget to check your spam, might take 48 hours to receive
         </p>
       </div>
     </>
@@ -159,7 +204,7 @@ const JournalSuccess = () => {
 const JournalError = ({
   error,
 }: {
-  error: { title: string; description: string };
+  error: { title: string; description: { large: string; small: string } };
 }) => {
   return (
     <>
@@ -167,7 +212,8 @@ const JournalError = ({
         <h2 className="text-xl text-balance md:text-2xl font-bold">
           {error.title}
         </h2>
-        <p className="text-muted-foreground">{error.description}</p>
+        <p className="text-muted-foreground">{error.description.large}</p>
+        <p className="text-sm mt-4 text-gray-600">{error.description.small}</p>
       </div>
     </>
   );
