@@ -4,14 +4,15 @@ import { useLenis } from "@/lib/lenis";
 import { useJournalModal } from "@/providers/JournalModalProvider";
 
 const NavLink = ({ children, id }: { id: string; children: ReactNode }) => {
-  const { setClosed } = useJournalModal();
+  const { closed, setClosed } = useJournalModal();
   const lenis = useLenis();
   return (
     <li
       className="cursor-pointer"
       onClick={() => {
+        const prevState = closed;
         setClosed(true);
-        lenis?.scrollTo(id, { onComplete: () => setClosed(false) });
+        lenis?.scrollTo(id, { onComplete: () => setClosed(closed) });
       }}
     >
       {children}
