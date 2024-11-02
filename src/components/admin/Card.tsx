@@ -160,7 +160,6 @@ Card.ImageUpload = function ImageUpload({
         id={name + "Input"}
         onChange={(e) => {
           if (!e.target.files || e.target.files.length === 0) return;
-          console.log(e.target.files[0].type);
           setImage({
             file: URL.createObjectURL(e.target.files[0]),
             type: e.target.files[0].type,
@@ -412,7 +411,6 @@ Card.Affiliate = function Affiliate({
   const [color, setColor] = useState("");
 
   useEffect(() => {
-    console.log(color);
     setValue(
       `affliates.${ind}.properties.color`,
       color || getValues(`affliates.${ind}.properties.color`)

@@ -9,15 +9,13 @@ import JournalModalProvider from "@/providers/JournalModalProvider";
 
 const SiteLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <SmoothScrolling>
-      <JournalModalProvider>
-        <div className="max-w-screen-xl  mx-auto overscroll-x-none ">
-          <Header />
-          <ScrollToTop />
-          <div className="">{children}</div>
-        </div>
-      </JournalModalProvider>
-    </SmoothScrolling>
+    <JournalModalProvider>
+      <div className="max-w-screen-xl  mx-auto overscroll-x-none ">
+        <Header />
+        <ScrollToTop />
+        <div className="">{children}</div>
+      </div>
+    </JournalModalProvider>
   );
 };
 

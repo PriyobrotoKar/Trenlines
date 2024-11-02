@@ -112,7 +112,6 @@ const JournalForm = ({
   >({ resolver: zodResolver(JournalModalSchema) });
 
   const onSubmit = async (data: z.infer<typeof JournalModalSchema>) => {
-    console.log("submit", data);
     setIsSubmitting(true);
     const res = await addSubscriber(data);
     if (res) {

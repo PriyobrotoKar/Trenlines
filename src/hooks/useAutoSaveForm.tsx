@@ -36,10 +36,8 @@ const useAutoSaveForm = <T extends FieldValues>(
 
   const onSubmit = useCallback(
     (data: DeepPartial<T>) => {
-      console.log(data);
       const isValid = schema.safeParse(data);
       if (!isValid.success) {
-        console.log("error", isValid.error.errors);
         isValid.error.errors.map((error) => {
           setError(error.path.join(".") as Path<T>, {
             type: "manual",
@@ -50,7 +48,6 @@ const useAutoSaveForm = <T extends FieldValues>(
         return;
       }
       clearErrors();
-      console.log("Save to", sectionName, data);
       updateSection(sectionName, data);
       setSyncing(false);
     },

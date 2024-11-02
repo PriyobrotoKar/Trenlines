@@ -12,7 +12,6 @@ const Resources = async () => {
     return null;
   }
   const content = data.content as Record<string, any>;
-  console.log(content.affliates[0].properties);
 
   return (
     <div id="resources" className="mb-28 md:mb-80 relative">
