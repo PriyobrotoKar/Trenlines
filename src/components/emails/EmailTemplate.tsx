@@ -6,8 +6,6 @@ import {
   Img,
   Container,
 } from "@react-email/components";
-import { url } from "inspector";
-import { Logo } from "../Logo";
 
 export function Email() {
   return (
