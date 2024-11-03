@@ -9,15 +9,17 @@ import Image from "next/image";
 import React from "react";
 
 const Vip = async () => {
-  const data = await getSection("vipProgram");
+  const vipData = await getSection("vipProgram");
   const heroData = await getSection("heroSection");
-  if (!data || !heroData) {
+  const headerData = await getSection("header");
+  if (!vipData || !heroData || !headerData) {
     return null;
   }
-  const vipContent = data.content as Record<string, any>;
+  const vipContent = vipData.content as Record<string, any>;
   const heroContent = heroData.content as Record<string, any>;
+  const headerContent = headerData.content as Record<string, string>;
 
-  const content = { ...vipContent, ...heroContent };
+  const content = { ...vipContent, ...heroContent, ...headerContent };
 
   return (
     <section id="outcomes">
@@ -111,7 +113,13 @@ const Vip = async () => {
             />
             <div className="space-y-4 md:space-y-8 relative z-10">
               <div className="flex gap-4 items-center">
-                <Logo.small />
+                <Image
+                  src={content.image}
+                  className="mx-auto md:mx-0"
+                  alt="Logo"
+                  width={60}
+                  height={60}
+                />
                 <span className="flex-grow tracking-wider text-sm md:text-md xl:text-base font-light">
                   TRENLINES VIP
                 </span>

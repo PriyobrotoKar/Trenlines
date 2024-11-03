@@ -4,16 +4,20 @@ import Image from "next/image";
 import React from "react";
 
 export const Footer = async () => {
-  const data = await getSection("footer");
-  if (!data) {
+  const vipData = await getSection("footer");
+  const headerData = await getSection("header");
+  if (!vipData || !headerData) {
     return null;
   }
-  const content = data.content as Record<string, any>;
+  const vipContent = vipData.content as Record<string, any>;
+  const headerContent = headerData.content as Record<string, any>;
+  const content = { ...vipContent, ...headerContent };
+
   return (
     <footer className="text-center relative  space-y-8 pb-10 pt-20 md:pt-48">
       <Image
         src={content.image}
-        className="mx-auto w-20 md:w-36"
+        className="mx-auto w-20 md:w-28"
         alt="Logo Large"
         width={150}
         height={150}

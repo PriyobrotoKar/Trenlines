@@ -15,7 +15,6 @@ const Header = async () => {
   return (
     <header className="flex absolute top-0 left-1/2 -translate-x-1/2  w-full max-w-screen-2xl  z-40 py-16 md:py-10 px-14 justify-between items-center">
       <div className="flex-1 ">
-        {/* <Logo.small /> */}
         <Image
           src={content.image}
           className="mx-auto md:mx-0"
