@@ -2,10 +2,10 @@
 import React, { ReactNode } from "react";
 import { useLenis } from "@/lib/lenis";
 import { useJournalModal } from "@/providers/JournalModalProvider";
-import lenis from "lenis";
 
 const NavLink = ({ children, id }: { id: string; children: ReactNode }) => {
   const { closed, setClosed } = useJournalModal();
+  const lenis = useLenis();
   return (
     <li
       className="cursor-pointer"
