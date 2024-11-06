@@ -4,6 +4,7 @@ import { JournalModalSchema } from "@/lib/types";
 import { headers } from "next/headers";
 import { z } from "zod";
 import { sendEmail } from "./sendEmail";
+import addSubscriberInConvertKit from "@/lib/convertKit";
 
 export const addSubscriber = async ({
   email,
@@ -43,6 +44,7 @@ export const addSubscriber = async ({
       };
     }
 
+    await addSubscriberInConvertKit(data);
     await sendEmail(email);
     await prisma.subscriber.create({
       data: {
